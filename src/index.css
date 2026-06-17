@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* light mode */
+  --bg: 244 245 247;
+  --surface: 255 255 255;
+  --surface-2: 238 240 243;
+  --line: 222 225 230;
+  --text: 13 15 18;
+  --muted: 99 106 117;
+  --faint: 150 156 166;
+  --accent: 240 68 36;
+  --accent-fg: 255 255 255;
+  --good: 22 145 74;
+}
+
+.dark {
+  /* dark mode */
+  --bg: 11 12 14;
+  --surface: 22 24 28;
+  --surface-2: 30 33 39;
+  --line: 41 45 52;
+  --text: 240 242 245;
+  --muted: 142 148 159;
+  --faint: 92 99 110;
+  --accent: 250 79 46;
+  --accent-fg: 17 9 6;
+  --good: 64 201 122;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  @apply bg-bg text-ink font-sans antialiased;
+  margin: 0;
+  padding: 0;
+}
+
+/* number inputs: kill spinners for a cleaner look */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
