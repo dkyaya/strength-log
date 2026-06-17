@@ -1,0 +1,16 @@
+{
+  "name": "Offseason Strength Log",
+  "short_name": "Strength Log",
+  "start_url": "/strength-log/",
+  "display": "standalone",
+  "background_color": "#0B0C0E",
+  "theme_color": "#0B0C0E",
+  "icons": [
+    {
+      "src": "/strength-log/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
