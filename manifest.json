@@ -1,6 +1,6 @@
 {
-  "name": "Offseason Strength Log",
-  "short_name": "Strength Log",
+  "name": "Fos — Strength Base Log",
+  "short_name": "Fos",
   "start_url": "/strength-log/",
   "display": "standalone",
   "background_color": "#0B0C0E",
