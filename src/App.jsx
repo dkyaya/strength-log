@@ -126,11 +126,11 @@ export default function App() {
         <ThemeToggle theme={theme} onToggle={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))} />
       </div>
 
-      <h1 className="font-display text-[32px] font-700 uppercase leading-[1.02] tracking-tight">
-        Strength <span className="text-accent">Base</span> Log
+      <h1 className="font-display text-[34px] font-700 uppercase leading-[1.02] tracking-tight">
+        Fos
       </h1>
       <p className="mt-1.5 max-w-[54ch] text-[14px] text-muted">
-        Four days, twice through upper and lower. The numbers are the demand — your call what you load.
+        Strength base for the offseason. Four days, twice through upper and lower — the numbers are the demand, your call what you load.
       </p>
 
       <NavTabs view={view} onChange={setView} />

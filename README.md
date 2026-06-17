@@ -1,4 +1,11 @@
-# Strength Base Log
+# Fos
+
+*(Strength Base Log — offseason strength tracker)*
+
+> **Note on naming:** the app is branded **Fos** in the UI, but the
+> project folder, npm package name, GitHub repo, and deployed URL all
+> stay `strength-log` — renaming those would mean a new repo and a new
+> URL, which isn't worth it just for a display name.
 
 A standalone training tracker — React + Vite + Tailwind + Framer Motion.
 Saves to the browser's local storage on your phone, so it persists across
