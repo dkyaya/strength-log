@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronRight } from 'lucide-react'
+import { PROGRAM } from '../data/program.js'
+import { todayKey } from '../lib/calc.js'
 
 export default function BackupPanel({ getState, onRestore }) {
   const [open, setOpen] = useState(false)
@@ -20,6 +22,33 @@ export default function BackupPanel({ getState, onRestore }) {
   function flash(text) {
     setMsg(text)
     setTimeout(() => setMsg(''), 2200)
+  }
+
+  function downloadCSV() {
+    const state = getState()
+    const allExercises = PROGRAM.flatMap((d) => d.blocks.flatMap((b) => b.ex))
+    const rows = [['date', 'exercise', 'weight', 'reps']]
+    for (const ex of allExercises) {
+      for (const e of state.logs[ex.id] || []) {
+        rows.push([e.date, ex.name, e.weight || '', e.reps])
+      }
+    }
+    for (const bw of state.bw || []) {
+      rows.push([bw.date, 'Bodyweight', bw.weight, ''])
+    }
+    const header = rows.shift()
+    rows.sort((a, b) => (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0))
+    rows.unshift(header)
+    const csv = rows.map((r) => r.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(',')).join('\n')
+    const blob = new Blob([csv], { type: 'text/csv' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `strength-log-export-${todayKey()}.csv`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
   }
 
   function restore() {
@@ -66,12 +95,18 @@ export default function BackupPanel({ getState, onRestore }) {
                 Your log saves on this device and survives closing the app. Pull a backup as
                 insurance, or paste one in to bring data over from another device.
               </p>
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-3">
                 <button
                   onClick={generate}
                   className="rounded-lg border border-accent px-3.5 py-2 font-display text-xs font-600 uppercase tracking-wide text-accent transition-colors hover:bg-accent hover:text-accent-fg"
                 >
                   Copy backup code
+                </button>
+                <button
+                  onClick={downloadCSV}
+                  className="rounded-lg border border-line px-3.5 py-2 font-display text-xs font-600 uppercase tracking-wide text-muted transition-colors hover:border-accent hover:text-accent"
+                >
+                  Export CSV
                 </button>
                 {msg && <span className="font-display text-xs font-500 text-good">{msg}</span>}
               </div>

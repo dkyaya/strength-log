@@ -41,3 +41,37 @@ export function lastEntry(logs, exId) {
 export function todaySets(logs, exId) {
   return (logs[exId] || []).filter((e) => e.date === todayKey())
 }
+
+// Returns per-date top sets for charting. If any set has a numeric weight,
+// tracks weight; otherwise tracks reps (bodyweight-only exercises).
+export function topSetByDate(logs, exId) {
+  const entries = logs[exId] || []
+  if (!entries.length) return { points: [], isReps: false }
+  const hasWeight = entries.some((e) => parseFloat(e.weight) > 0)
+  const byDate = {}
+  for (const e of entries) {
+    if (!byDate[e.date]) byDate[e.date] = []
+    byDate[e.date].push(e)
+  }
+  const points = Object.keys(byDate)
+    .sort()
+    .map((date) => {
+      const sets = byDate[date]
+      let best
+      if (hasWeight) {
+        best = sets.reduce((a, b) => {
+          const wa = parseFloat(a.weight) || 0
+          const wb = parseFloat(b.weight) || 0
+          if (wb !== wa) return wb > wa ? b : a
+          return (parseFloat(b.reps) || 0) >= (parseFloat(a.reps) || 0) ? b : a
+        })
+        return { date, value: parseFloat(best.weight) || 0 }
+      } else {
+        best = sets.reduce((a, b) =>
+          (parseFloat(b.reps) || 0) >= (parseFloat(a.reps) || 0) ? b : a,
+        )
+        return { date, value: parseFloat(best.reps) || 0 }
+      }
+    })
+  return { points, isReps: !hasWeight }
+}
