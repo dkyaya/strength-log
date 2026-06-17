@@ -1,0 +1,89 @@
+# Changelog
+
+All changes to the Fos app, in chronological order.
+
+---
+
+## 2026-06-17 16:54 — Rebuild as React app
+
+Completely rewrote the app from scratch as a proper React + Vite + Tailwind + Framer Motion single-page app. Replaced whatever existed before with a structured training tracker that works offline and saves everything to the browser's local storage.
+
+**What was added:**
+- Three training phases (Re-entry, Build, Intensify) with per-phase sets/reps/weight prescriptions for every exercise. A pill switcher lets you move between phases without losing any logged history.
+- Four training days (Upper A, Lower A, Upper B, Lower B) with a tab layout. Each day has its own block of exercises.
+- Warmup gate — three checklist items that must all be ticked before the workout unlocks. Resets automatically each day.
+- Set logging per exercise: enter weight and reps, tap to log. Previously logged sets show inline with a remove button.
+- "Mark session done" button that records a completed session for today.
+- Bodyweight tracker with a date-stamped entry and a small sparkline trend chart.
+- Stats row showing total sessions logged and current training streak.
+- Light / dark mode toggle (top-right), persisted across reloads.
+- Backup & restore panel: copies your entire log as a text blob you can paste back in, useful for moving between devices.
+- Phase switcher persisted to storage so it survives page reloads.
+
+**Storage:** everything (sets, sessions, bodyweight, warmup state, theme, phase) is stored under the key `jumper_offseason_v1` in `localStorage`. The key and exercise `id` values are the stable identity for your data — changing them would disconnect history.
+
+---
+
+## 2026-06-17 17:10 — PWA manifest and home screen icon support
+
+Added the files needed so the app can be installed as a Progressive Web App and added to the iOS home screen as a bookmark that opens full-screen without browser chrome.
+
+**What was added:**
+- `public/manifest.json` — tells the browser the app's name, short name, theme color, and icon. Required for "Add to Home Screen" to produce a proper icon.
+- `public/icon-192.png` — the app icon (192×192) used both in the manifest and as the Apple touch icon.
+- Meta tags in `index.html`: `apple-mobile-web-app-capable`, `mobile-web-app-capable`, `apple-mobile-web-app-status-bar-style`, `apple-mobile-web-app-title`, and `theme-color`. These are what make iOS treat the saved bookmark as a standalone app rather than a regular browser tab.
+- Link tags for the manifest and apple-touch-icon in `index.html`.
+
+**How to use:** open the app in Safari on iPhone → Share → Add to Home Screen. The icon appears on the home screen, and opening it launches full-screen with the status bar blending into the app's dark background.
+
+---
+
+## 2026-06-17 17:42 — Progress charts, training calendar, and CSV export
+
+Added two new views alongside the main training tab, accessible via a nav tab bar across the top.
+
+**Progress view:**
+- Per-exercise line charts showing max weight logged over time, one chart per exercise.
+- Charts are built with Recharts. Each point is the heaviest set logged on that date.
+- Only exercises that have at least one logged set appear.
+
+**Calendar view:**
+- Monthly calendar grid showing which days had completed sessions.
+- Completed days are highlighted. Clicking a day shows a summary of what was logged that day.
+
+**CSV export:**
+- Button in the backup panel that downloads your entire log as a `.csv` file — one row per logged set, with columns for date, exercise name, weight, and reps.
+- Useful for doing your own analysis outside the app.
+
+**Nav tabs:**
+- New `NavTabs` component with three tabs: Train, Progress, Calendar.
+- The active view animates in/out with a short fade transition via Framer Motion's `AnimatePresence`.
+
+---
+
+## 2026-06-17 17:59 — Rebrand display name to "Fos"
+
+Renamed all user-facing brand strings from "Strength Base Log" / "Offseason Strength Log" to "Fos". The technical slug (`strength-log`) was deliberately left unchanged everywhere — renaming it would break the live GitHub Pages URL and require creating a new repo.
+
+**What changed:**
+- `index.html`: page `<title>` changed to `Fos — Strength Base Log`; `apple-mobile-web-app-title` changed to `Fos`.
+- `public/manifest.json`: `name` changed to `Fos — Strength Base Log`; `short_name` changed to `Fos`. This updates the label that appears under the icon on the iOS home screen.
+- `src/App.jsx`: the main `<h1>` now reads `Fos` instead of `Strength Base Log`. The subtitle was updated to "Strength base for the offseason. Four days, twice through upper and lower — the numbers are the demand, your call what you load."
+- `README.md`: title updated to `# Fos` with a note explaining the brand-vs-slug split.
+
+**What was not touched:** `package.json` name field, `vite.config.js` base path, the `jumper_offseason_v1` storage key, exercise `id` values. Existing data on any device carries over automatically with no import/export step.
+
+---
+
+## 2026-06-17 18:14 — Animated LogoMark in header
+
+Created a new `LogoMark` component and placed it in the header next to the "Fos" wordmark.
+
+**The component (`src/components/LogoMark.jsx`):**
+- Renders a small rounded-square tile (fixed `#0B0C0E` background, so it looks the same in light and dark mode) containing the brand glyph: a quadratic arc (`M20 50 Q50 14 80 50`) and a bar (`rx=4.5` pill shape), both in the accent color.
+- **Draw-in on mount:** the arc strokes in using `pathLength` animation (~0.5s, easeOut), then the bar scales in from the center (~0.3s, 0.45s delay) so it visibly follows the arc rather than appearing at the same time.
+- **Ambient glow:** once the draw-in settles, a blurred accent-colored glow breathes behind the tile in an infinite mirrored loop — subtle, not distracting.
+- **Tap bounce:** tapping or clicking the mark triggers a quick spring squash (scale 0.88, −4° rotate) with a snappy spring return.
+- `animate` prop (default `true`) lets a caller opt out of the entrance animation and glow, keeping only the tap bounce. Useful if the component is ever reused inside a list where entrance animations would be excessive.
+
+**App.jsx changes:** added the `LogoMark` import and updated the `<h1>` to `flex items-center gap-3` layout with `<LogoMark size={40} />` preceding the wordmark.
