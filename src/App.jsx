@@ -17,6 +17,7 @@ import BackupPanel from './components/BackupPanel.jsx'
 import ThemeToggle from './components/ThemeToggle.jsx'
 import ProgressView from './components/ProgressView.jsx'
 import CalendarView from './components/CalendarView.jsx'
+import LogoMark from './components/LogoMark.jsx'
 
 export default function App() {
   const [state, setState] = useState(loadData)
@@ -126,7 +127,8 @@ export default function App() {
         <ThemeToggle theme={theme} onToggle={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))} />
       </div>
 
-      <h1 className="font-display text-[34px] font-700 uppercase leading-[1.02] tracking-tight">
+      <h1 className="flex items-center gap-3 font-display text-[34px] font-700 uppercase leading-[1.02] tracking-tight">
+        <LogoMark size={40} />
         Fos
       </h1>
       <p className="mt-1.5 max-w-[54ch] text-[14px] text-muted">
