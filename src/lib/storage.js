@@ -1,9 +1,14 @@
 // Persists to the browser's localStorage, keyed to the page origin.
-// KEY is unchanged from earlier versions so your logged history carries over
-// automatically when this deploys to the same github.io origin.
+// KEY/THEME_KEY come from build-time env vars (set per profile in
+// .env.fos / .env.her) so each profile gets fully independent storage —
+// even though both profiles are served from the same origin
+// (<user>.github.io), the actual key STRING differs, so there's zero
+// chance of one profile's data overwriting the other's. Falls back to
+// the original Fos defaults if the env var isn't set (e.g. plain
+// `vite dev` with no --mode flag), so nothing breaks for existing usage.
 
-const KEY = 'jumper_offseason_v1'
-const THEME_KEY = 'strength_theme'
+const KEY = import.meta.env.VITE_STORAGE_KEY || 'jumper_offseason_v1'
+const THEME_KEY = import.meta.env.VITE_THEME_KEY || 'strength_theme'
 
 const EMPTY = { logs: {}, sessions: [], bw: [], warmups: {}, phase: 0 }
 

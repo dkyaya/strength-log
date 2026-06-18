@@ -4,10 +4,13 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "vite --mode fos",
+    "dev:her": "vite --mode her",
+    "build": "npm run build:fos",
+    "build:fos": "vite build --mode fos",
+    "build:her": "vite build --mode her --outDir dist/her",
     "preview": "vite preview",
-    "deploy": "npm run build && gh-pages -d dist"
+    "deploy": "npm run build:fos && npm run build:her && gh-pages -d dist"
   },
   "dependencies": {
     "framer-motion": "^11.3.0",

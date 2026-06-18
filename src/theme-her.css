@@ -1,0 +1,14 @@
+/* FOS4Her accent theme — pink. Swapped in at build time via the
+   `@theme` alias in vite.config.js (mode: 'her'). Uses Tailwind's
+   pink-600 (light) / pink-500 (dark) values — well-tested for contrast,
+   so swapping the hex later is easy without redoing the calibration. */
+
+:root {
+  --accent: 219 39 119; /* pink-600 */
+  --accent-fg: 255 255 255;
+}
+
+.dark {
+  --accent: 236 72 153; /* pink-500 */
+  --accent-fg: 17 9 6;
+}

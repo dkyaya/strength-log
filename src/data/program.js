@@ -3,6 +3,12 @@
 // `weight` is the demanded target — athlete uses discretion, but the number is stated.
 // Exercise `id`s are STABLE and match earlier versions so logged history carries over.
 
+export const BRAND = {
+  name: 'Fos',
+  eyebrow: 'Offseason · General Prep',
+  subtitle: 'Strength base for the offseason. Four days, twice through upper and lower — the numbers are the demand, your call what you load.',
+}
+
 export const PHASES = [
   { key: 'reentry', label: 'Re-entry', weeks: 'Weeks 1–2', blurb: 'Ease back in. Lighter, fewer sets, slow eccentrics on the mains. Rebuild tendon tolerance — not PRs.' },
   { key: 'build', label: 'Build', weeks: 'Weeks 2–4', blurb: 'Full sets. Climb the loads via double progression — top of the rep range, then add weight. 1–2 reps in reserve.' },

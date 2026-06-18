@@ -1,11 +1,10 @@
 import { motion } from 'framer-motion'
-import { PHASES } from '../data/program.js'
 
-export default function PhaseSwitcher({ phaseIdx, onChange }) {
+export default function PhaseSwitcher({ phases, phaseIdx, onChange }) {
   return (
     <div className="mb-3">
       <div className="inline-flex rounded-full border border-line bg-surface p-1">
-        {PHASES.map((ph, i) => (
+        {phases.map((ph, i) => (
           <button
             key={ph.key}
             onClick={() => onChange(i)}
@@ -25,7 +24,7 @@ export default function PhaseSwitcher({ phaseIdx, onChange }) {
         ))}
       </div>
       <p className="mt-2 max-w-[52ch] text-[12.5px] leading-snug text-muted">
-        <span className="font-600 text-ink">{PHASES[phaseIdx].weeks}.</span> {PHASES[phaseIdx].blurb}
+        <span className="font-600 text-ink">{phases[phaseIdx].weeks}.</span> {phases[phaseIdx].blurb}
       </p>
     </div>
   )

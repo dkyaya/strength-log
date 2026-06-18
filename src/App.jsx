@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Lock } from 'lucide-react'
 
-import { PROGRAM, PHASES, WARMUP } from './data/program.js'
+import { ACTIVE_PROGRAM as PROGRAM, ACTIVE_PHASES as PHASES, ACTIVE_WARMUP as WARMUP, ACTIVE_BRAND as BRAND } from './data/active-profile.js'
 import { loadData, saveData, clearData, loadTheme, saveTheme } from './lib/storage.js'
 import { todayKey } from './lib/calc.js'
 
@@ -21,7 +21,7 @@ import LogoMark from './components/LogoMark.jsx'
 
 export default function App() {
   const [state, setState] = useState(loadData)
-  const [active, setActive] = useState('lowerA')
+  const [active, setActive] = useState(() => PROGRAM[0].id)
   const [theme, setTheme] = useState(loadTheme)
   const [saved, setSaved] = useState(false)
   const [view, setView] = useState('train')
@@ -121,7 +121,7 @@ export default function App() {
       {/* header */}
       <div className="mb-2.5 flex items-center gap-2">
         <span className="font-display text-[11px] font-500 uppercase tracking-widest2 text-faint">
-          Offseason · General Prep
+          {BRAND.eyebrow}
         </span>
         <span className="h-px flex-1 bg-line" />
         <ThemeToggle theme={theme} onToggle={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))} />
@@ -129,10 +129,10 @@ export default function App() {
 
       <h1 className="flex items-center gap-3 font-display text-[34px] font-700 uppercase leading-[1.02] tracking-tight">
         <LogoMark size={40} />
-        Fos
+        {BRAND.name}
       </h1>
       <p className="mt-1.5 max-w-[54ch] text-[14px] text-muted">
-        Strength base for the offseason. Four days, twice through upper and lower — the numbers are the demand, your call what you load.
+        {BRAND.subtitle}
       </p>
 
       <NavTabs view={view} onChange={setView} />
@@ -153,9 +153,9 @@ export default function App() {
               <BodyweightCard bw={state.bw} onLog={logBW} />
             </div>
 
-            <PhaseSwitcher phaseIdx={state.phase} onChange={(i) => setState((s) => ({ ...s, phase: i }))} />
+            <PhaseSwitcher phases={PHASES} phaseIdx={state.phase} onChange={(i) => setState((s) => ({ ...s, phase: i }))} />
 
-            <DayTabs active={active} onChange={setActive} sessions={state.sessions} />
+            <DayTabs program={PROGRAM} active={active} onChange={setActive} sessions={state.sessions} />
 
             <AnimatePresence mode="wait">
               <motion.div
