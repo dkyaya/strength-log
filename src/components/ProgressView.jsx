@@ -1,10 +1,9 @@
 import { useState } from 'react'
-import { PROGRAM } from '../data/program.js'
 import { topSetByDate, fmtShort } from '../lib/calc.js'
 import ProgressChart from './ProgressChart.jsx'
 
-export default function ProgressView({ logs }) {
-  const [selectedId, setSelectedId] = useState(PROGRAM[0].blocks[0].ex[0].id)
+export default function ProgressView({ program, logs }) {
+  const [selectedId, setSelectedId] = useState(program[0].blocks[0].ex[0].id)
 
   const { points, isReps } = topSetByDate(logs, selectedId)
 
@@ -26,7 +25,7 @@ export default function ProgressView({ logs }) {
         onChange={(e) => setSelectedId(e.target.value)}
         className="mb-4 w-full rounded-xl border border-line bg-surface px-4 py-3 font-display text-[14px] font-600 text-ink outline-none focus:border-accent"
       >
-        {PROGRAM.map((day) => (
+        {program.map((day) => (
           <optgroup key={day.id} label={day.name}>
             {day.blocks.flatMap((b) => b.ex).map((ex) => (
               <option key={ex.id} value={ex.id}>

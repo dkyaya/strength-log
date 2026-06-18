@@ -238,7 +238,7 @@ export default function App() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
           >
-            <ProgressView logs={state.logs} />
+            <ProgressView program={PROGRAM} logs={state.logs} />
           </motion.div>
         )}
 

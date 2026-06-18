@@ -4,6 +4,12 @@ All changes to the Fos app, newest first.
 
 ---
 
+## 2026-06-18 — FOS4Her exercises in progress dropdown
+
+`ProgressView` was importing `PROGRAM` directly from `program.js`, so the progress dropdown always showed Fos exercises regardless of build. Fixed by making it prop-driven (`program` prop) and passing `PROGRAM` from `App.jsx` — same pattern as the earlier DayTabs/PhaseSwitcher/Warmup fixes. FOS4Her's progress view now shows all five of her days (Abs, Push, Glute, Quad, Back & Bis) grouped by day, with all exercises selectable.
+
+---
+
 ## 2026-06-18 — FOS4Her: remove phase switcher, simplify warmup
 
 **Phase switcher hidden for FOS4Her.** Added `showPhases` flag to the `BRAND` object on both profiles (`true` for Fos, `false` for FOS4Her). `App.jsx` gates `<PhaseSwitcher>` on `BRAND.showPhases` — the Fos build is unchanged; the her build shows no phase tabs.
