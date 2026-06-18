@@ -4,6 +4,16 @@ All changes to the Fos app, newest first.
 
 ---
 
+## 2026-06-18 — FOS4Her: remove phase switcher, simplify warmup
+
+**Phase switcher hidden for FOS4Her.** Added `showPhases` flag to the `BRAND` object on both profiles (`true` for Fos, `false` for FOS4Her). `App.jsx` gates `<PhaseSwitcher>` on `BRAND.showPhases` — the Fos build is unchanged; the her build shows no phase tabs.
+
+**FOS4Her warmup simplified to two items:** "Cardio · 10–15 min" and "General stretching". Added `WARMUP_HER` to `program.her.js`, updated `active-profile.js` to export it conditionally instead of always using the shared Fos warmup.
+
+**Bug fix — `Warmup.jsx` prop-ified.** Component was importing `WARMUP` directly from `program.js` (same pattern as the DayTabs/PhaseSwitcher bugs fixed last session). Now receives `warmup` as a prop from `App.jsx`, so the her build correctly uses `WARMUP_HER`.
+
+---
+
 ## 2026-06-18 — Add FOS4Her second profile
 
 Added a fully separate pink-themed build of the app — **FOS4Her** — deployed at `/strength-log/her/`. Same source tree, two independent static apps built at deploy time via Vite modes.

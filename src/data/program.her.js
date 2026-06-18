@@ -30,6 +30,16 @@ export const BRAND = {
   name: 'FOS4Her',
   eyebrow: 'Strength Training',
   subtitle: 'Abs, push, glute, quad, back & bis — the numbers are the demand, your call what you load.',
+  showPhases: false,
+}
+
+export const WARMUP_HER = {
+  label: 'Warmup',
+  time: '10–15 min',
+  items: [
+    'Cardio · 10–15 min',
+    'General stretching',
+  ],
 }
 
 const WEIGHT = 'Your pick'

@@ -153,7 +153,7 @@ export default function App() {
               <BodyweightCard bw={state.bw} onLog={logBW} />
             </div>
 
-            <PhaseSwitcher phases={PHASES} phaseIdx={state.phase} onChange={(i) => setState((s) => ({ ...s, phase: i }))} />
+            {BRAND.showPhases && <PhaseSwitcher phases={PHASES} phaseIdx={state.phase} onChange={(i) => setState((s) => ({ ...s, phase: i }))} />}
 
             <DayTabs program={PROGRAM} active={active} onChange={setActive} sessions={state.sessions} />
 
@@ -170,7 +170,7 @@ export default function App() {
                   <span className="font-display text-[11px] uppercase tracking-wide text-accent">{day.focus}</span>
                 </div>
 
-                <Warmup done={wuDone} onToggle={toggleWarmup} />
+                <Warmup warmup={WARMUP} done={wuDone} onToggle={toggleWarmup} />
 
                 {!cleared && (
                   <div className="mb-3.5 flex items-center gap-2.5 rounded-xl border border-accent/25 bg-accent/10 px-3.5 py-3">

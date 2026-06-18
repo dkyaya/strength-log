@@ -1,8 +1,7 @@
 import { motion } from 'framer-motion'
 import { Check } from 'lucide-react'
-import { WARMUP } from '../data/program.js'
 
-export default function Warmup({ done, onToggle }) {
+export default function Warmup({ warmup, done, onToggle }) {
   const count = done.filter(Boolean).length
   const cleared = done.every(Boolean)
 
@@ -13,17 +12,17 @@ export default function Warmup({ done, onToggle }) {
       }`}
     >
       <div className="flex items-center gap-3 border-b border-line/70 px-4 py-3">
-        <span className="font-display text-sm font-600 uppercase tracking-wide">{WARMUP.label}</span>
+        <span className="font-display text-sm font-600 uppercase tracking-wide">{warmup.label}</span>
         <span
           className={`ml-auto font-display text-[11px] font-500 uppercase tracking-widest2 ${
             cleared ? 'text-good' : 'text-accent'
           }`}
         >
-          {cleared ? 'Cleared' : `${count}/${WARMUP.items.length} · ${WARMUP.time}`}
+          {cleared ? 'Cleared' : `${count}/${warmup.items.length} · ${warmup.time}`}
         </span>
       </div>
       <div className="p-2">
-        {WARMUP.items.map((item, i) => {
+        {warmup.items.map((item, i) => {
           const on = done[i]
           return (
             <motion.button

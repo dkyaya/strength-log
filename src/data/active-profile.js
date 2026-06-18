@@ -10,11 +10,11 @@
 // needs its own), import it below, and add a branch.
 
 import { PROGRAM, PHASES, WARMUP, BRAND } from './program.js'
-import { PROGRAM_HER, PHASES_HER, BRAND as BRAND_HER } from './program.her.js'
+import { PROGRAM_HER, PHASES_HER, WARMUP_HER, BRAND as BRAND_HER } from './program.her.js'
 
 const isHer = import.meta.env.VITE_PROFILE === 'her'
 
 export const ACTIVE_PROGRAM = isHer ? PROGRAM_HER : PROGRAM
 export const ACTIVE_PHASES = isHer ? PHASES_HER : PHASES
-export const ACTIVE_WARMUP = WARMUP // shared — generic, not profile-specific
+export const ACTIVE_WARMUP = isHer ? WARMUP_HER : WARMUP
 export const ACTIVE_BRAND = isHer ? BRAND_HER : BRAND
