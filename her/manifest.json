@@ -1,0 +1,14 @@
+{
+  "name": "FOS4Her — Strength Log",
+  "short_name": "FOS4Her",
+  "description": "Strength training tracker.",
+  "start_url": "/strength-log/her/",
+  "scope": "/strength-log/her/",
+  "display": "standalone",
+  "background_color": "#0B0C0E",
+  "theme_color": "#0B0C0E",
+  "icons": [
+    { "src": "/strength-log/her/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/strength-log/her/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
