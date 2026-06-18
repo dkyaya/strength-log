@@ -250,7 +250,7 @@ export default function App() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
           >
-            <CalendarView sessions={state.sessions} logs={state.logs} />
+            <CalendarView program={PROGRAM} sessions={state.sessions} logs={state.logs} />
           </motion.div>
         )}
       </AnimatePresence>

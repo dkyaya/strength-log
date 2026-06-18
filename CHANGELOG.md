@@ -4,6 +4,14 @@ All changes to the Fos app, newest first.
 
 ---
 
+## 2026-06-18 — 6 sessions/week, calendar now profile-aware
+
+**"This week" counter updated to `/6`** in `StatsRow` (was `/4`).
+
+**`CalendarView` prop-ified and made fully profile-aware.** Component was importing `PROGRAM` directly from `program.js` — day dot colors and the legend were hardcoded to Fos day IDs, so FOS4Her sessions would have shown no colored dots and an empty legend. Fixed by accepting a `program` prop and generating `dayMeta` dynamically (cycles through 6 preset colors for as many days as the program has). `App.jsx` now passes `program={PROGRAM}` to `CalendarView`.
+
+---
+
 ## 2026-06-18 — FOS4Her exercises in progress dropdown
 
 `ProgressView` was importing `PROGRAM` directly from `program.js`, so the progress dropdown always showed Fos exercises regardless of build. Fixed by making it prop-driven (`program` prop) and passing `PROGRAM` from `App.jsx` — same pattern as the earlier DayTabs/PhaseSwitcher/Warmup fixes. FOS4Her's progress view now shows all five of her days (Abs, Push, Glute, Quad, Back & Bis) grouped by day, with all exercises selectable.

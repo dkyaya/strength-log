@@ -7,7 +7,7 @@ export default function StatsRow({ sessions }) {
 
   const items = [
     { num: total, label: 'Sessions logged' },
-    { num: <>{week}<small className="text-base text-muted">/4</small></>, label: 'This week' },
+    { num: <>{week}<small className="text-base text-muted">/6</small></>, label: 'This week' },
     { num: last ? fmtShort(last) : '—', label: 'Last trained', small: true },
   ]
 

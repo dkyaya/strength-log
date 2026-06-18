@@ -1,14 +1,15 @@
 import { useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { PROGRAM } from '../data/program.js'
 import { todayKey, fmtShort } from '../lib/calc.js'
 
-const DAY_META = {
-  lowerA: { color: 'rgb(var(--accent))' },
-  upperA: { color: '#3b82f6' },
-  lowerB: { color: '#f59e0b' },
-  upperB: { color: 'rgb(var(--good))' },
-}
+const COLORS = [
+  'rgb(var(--accent))',
+  '#3b82f6',
+  '#f59e0b',
+  'rgb(var(--good))',
+  '#a855f7',
+  '#06b6d4',
+]
 
 const MONTH_NAMES = [
   'January','February','March','April','May','June',
@@ -16,11 +17,15 @@ const MONTH_NAMES = [
 ]
 const DAY_HEADERS = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
 
-export default function CalendarView({ sessions, logs }) {
+export default function CalendarView({ program, sessions, logs }) {
   const today = todayKey()
   const [year, setYear] = useState(() => parseInt(today.slice(0, 4)))
   const [month, setMonth] = useState(() => parseInt(today.slice(5, 7)) - 1)
   const [tapped, setTapped] = useState(null)
+
+  const dayMeta = Object.fromEntries(
+    program.map((day, i) => [day.id, { color: COLORS[i % COLORS.length] }])
+  )
 
   const sessionMap = {}
   for (const s of sessions) sessionMap[s.date] = s
@@ -47,7 +52,7 @@ export default function CalendarView({ sessions, logs }) {
   }
 
   function getTappedSummary(cell) {
-    const dayData = PROGRAM.find((d) => d.id === cell.session.day)
+    const dayData = program.find((d) => d.id === cell.session.day)
     if (!dayData) return null
     const exercisesLogged = dayData.blocks
       .flatMap((b) => b.ex)
@@ -92,7 +97,7 @@ export default function CalendarView({ sessions, logs }) {
           {cells.map((cell, i) => {
             if (!cell) return <div key={i} />
             const isToday = cell.dateStr === today
-            const meta = cell.session ? DAY_META[cell.session.day] : null
+            const meta = cell.session ? dayMeta[cell.session.day] : null
             const isTapped = tapped?.dateStr === cell.dateStr
             return (
               <button
@@ -126,7 +131,7 @@ export default function CalendarView({ sessions, logs }) {
           <div className="mb-3 flex items-center gap-2">
             <span
               className="h-2.5 w-2.5 flex-none rounded-full"
-              style={{ backgroundColor: DAY_META[tapped.session.day]?.color }}
+              style={{ backgroundColor: dayMeta[tapped.session.day]?.color }}
             />
             <span className="font-display text-[15px] font-700">{summary.dayData.name}</span>
             <span className="ml-auto font-display text-[12px] text-muted">{fmtShort(tapped.dateStr)}</span>
@@ -152,11 +157,11 @@ export default function CalendarView({ sessions, logs }) {
       )}
 
       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
-        {PROGRAM.map((day) => (
+        {program.map((day) => (
           <div key={day.id} className="flex items-center gap-1.5">
             <span
               className="h-2 w-2 flex-none rounded-full"
-              style={{ backgroundColor: DAY_META[day.id]?.color }}
+              style={{ backgroundColor: dayMeta[day.id]?.color }}
             />
             <span className="font-display text-[11px] text-muted">{day.name}</span>
           </div>
