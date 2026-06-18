@@ -4,6 +4,33 @@ All changes to the Fos app, newest first.
 
 ---
 
+## 2026-06-18 — Add FOS4Her second profile
+
+Added a fully separate pink-themed build of the app — **FOS4Her** — deployed at `/strength-log/her/`. Same source tree, two independent static apps built at deploy time via Vite modes.
+
+**New files:**
+- `src/data/program.her.js` — full FOS4Her workout program (Abs, Push, Glute, Quad, Back & Bis; "Your pick" weights; pyramid prescription throughout; three placeholder phases).
+- `src/data/active-profile.js` — build-time profile resolver; imports both profiles statically and exports the active one based on `VITE_PROFILE` env var.
+- `src/theme-fos.css` / `src/theme-her.css` — per-profile accent color declarations (orange-red vs pink-600/pink-500), aliased at build time via `@theme`.
+- `.env.fos` / `.env.her` — per-profile build env vars: storage key, theme key, app title, Apple title, theme-color hex.
+- `public-her/` — pink icons (192, 512, 180, 32px), favicon SVG, and `manifest.json` scoped to `/strength-log/her/`.
+
+**Modified files:**
+- `vite.config.js` — replaced with mode-aware config; each mode gets its own `base`, `publicDir`, and `@theme` alias.
+- `package.json` — added `build:fos`, `build:her`, `dev:her` scripts; `build` and `deploy` updated to run both profiles.
+- `src/data/program.js` — added `BRAND` export (name, eyebrow, subtitle) for the Fos profile.
+- `src/lib/storage.js` — `KEY` and `THEME_KEY` now read from `VITE_STORAGE_KEY` / `VITE_THEME_KEY` env vars, falling back to original Fos defaults; guarantees zero cross-profile data collision.
+- `src/main.jsx` — added `import '@theme'` to pull in the build-time accent palette.
+- `src/index.css` — removed `--accent` / `--accent-fg` declarations (now live in theme files).
+- `src/App.jsx` — imports from `active-profile.js` instead of `program.js`; header copy driven by `BRAND` fields; passes `phases` to `PhaseSwitcher` and `program` to `DayTabs`; initial active day derived from `PROGRAM[0].id` instead of hardcoded `'lowerA'`.
+- `src/components/PhaseSwitcher.jsx` — receives `phases` as a prop instead of importing directly from `program.js`.
+- `src/components/DayTabs.jsx` — receives `program` as a prop (bug fix: was importing directly from `program.js`, which would have shown Fos day tabs in the her build).
+- `index.html` — `<title>`, `apple-mobile-web-app-title`, and `theme-color` now use `%VITE_*%` placeholders resolved per build.
+
+**Her URL:** `https://dkyaya.github.io/strength-log/her/` — open in Safari, Share → Add to Home Screen for the pink FOS4Her icon.
+
+---
+
 ## 2026-06-17 18:14 — Animated LogoMark in header
 
 Created a new `LogoMark` component and placed it in the header next to the "Fos" wordmark.
