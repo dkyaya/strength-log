@@ -52,6 +52,7 @@ export const BRAND = {
   name: 'Fos',
   eyebrow: 'Strength Training',
   subtitle: 'Quads, hamstrings, chest & back, arms & shoulders — the numbers are the demand, your call what you load.',
+  weeklyTarget: 4,
 }
 
 const WEIGHT = 'Your pick'
