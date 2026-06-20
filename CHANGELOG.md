@@ -4,6 +4,14 @@ All changes to the Fos app, newest first.
 
 ---
 
+## 2026-06-20 — Add Zay profile (lime green, 4-day program)
+
+Third profile alongside fos and her. Zay's program: Quads, Hamstrings, Chest & Back, Arms & Shoulders — 4 days, real maxes baked in (Back Squat 275, Front Squat 300, Bench 185, Military Press 115, Hang Clean 175). Trap Deadlift is labeled "bar-limited" instead of a percentage — he's equipment-capped. Two exercises added after the initial draft: Back Extension (4×10) and Straight Bar Deadlift (5×5). Lime-green accent (`--accent: 101 163 13` / `163 230 53`). Storage key `zay_v1`, deployed at `/strength-log/zay/`.
+
+New files: `src/data/program.zay.js`, `src/theme-zay.css`, `.env.zay`, `public-zay/manifest.webmanifest`. Updated: `active-profile.js` (three-way branch), `vite.config.js` (PROFILE_PATHS table), `package.json` (`dev:zay`, `build:zay`, deploy includes all three).
+
+---
+
 ## 2026-06-20 — Profile-specific weekly target, session notes, dated data
 
 **Weekly target is now profile-specific.** `BRAND.weeklyTarget` added to both program files (4 for Fos, 6 for FOS4Her). `StatsRow` accepts it as a prop instead of hardcoding `/6`. `App.jsx` passes `BRAND.weeklyTarget` through.

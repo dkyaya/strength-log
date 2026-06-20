@@ -6,11 +6,13 @@
   "scripts": {
     "dev": "vite --mode fos",
     "dev:her": "vite --mode her",
+    "dev:zay": "vite --mode zay",
     "build": "npm run build:fos",
     "build:fos": "vite build --mode fos",
     "build:her": "vite build --mode her --outDir dist/her",
+    "build:zay": "vite build --mode zay --outDir dist/zay",
     "preview": "vite preview",
-    "deploy": "npm run build:fos && npm run build:her && gh-pages -d dist"
+    "deploy": "npm run build:fos && npm run build:her && npm run build:zay && gh-pages -d dist"
   },
   "dependencies": {
     "framer-motion": "^11.3.0",

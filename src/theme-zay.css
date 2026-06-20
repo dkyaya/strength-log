@@ -1,0 +1,15 @@
+/* Zay accent theme — lime green. Swapped in at build time via the
+   `@theme` alias in vite.config.js (mode: 'zay'). Uses near-black
+   accent-fg in BOTH modes (not white in light mode like the other two
+   profiles) — lime stays high-luminance even at a darker shade, so
+   white text on it tends to wash out. */
+
+:root {
+  --accent: 101 163 13; /* lime-600 */
+  --accent-fg: 17 9 6;
+}
+
+.dark {
+  --accent: 163 230 53; /* lime-400 */
+  --accent-fg: 17 9 6;
+}
