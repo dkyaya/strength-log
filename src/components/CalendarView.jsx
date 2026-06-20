@@ -17,7 +17,7 @@ const MONTH_NAMES = [
 ]
 const DAY_HEADERS = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
 
-export default function CalendarView({ program, sessions, logs }) {
+export default function CalendarView({ program, sessions, logs, notes }) {
   const today = todayKey()
   const [year, setYear] = useState(() => parseInt(today.slice(0, 4)))
   const [month, setMonth] = useState(() => parseInt(today.slice(5, 7)) - 1)
@@ -152,6 +152,11 @@ export default function CalendarView({ program, sessions, logs }) {
             </div>
           ) : (
             <p className="text-[13px] text-muted">Session marked done — no individual sets recorded</p>
+          )}
+          {notes && notes[`${tapped.session.day}_${tapped.dateStr}`] && (
+            <p className="mt-3 border-t border-line pt-3 text-[13px] italic text-muted">
+              {notes[`${tapped.session.day}_${tapped.dateStr}`]}
+            </p>
           )}
         </div>
       )}

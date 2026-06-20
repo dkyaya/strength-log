@@ -86,6 +86,10 @@ export default function App() {
     setState((s) => ({ ...s, sessions: s.sessions.concat([{ day: active, date: todayKey() }]) }))
   }, [active])
 
+  const saveNote = useCallback((dayId, date, text) => {
+    setState((s) => ({ ...s, notes: { ...s.notes, [`${dayId}_${date}`]: text } }))
+  }, [])
+
   const logBW = useCallback((weight) => {
     setState((s) => {
       const tk = todayKey()
@@ -112,6 +116,7 @@ export default function App() {
       sessions: Array.isArray(obj.sessions) ? obj.sessions : [],
       bw: Array.isArray(obj.bw) ? obj.bw : [],
       warmups: obj.warmups && typeof obj.warmups === 'object' ? obj.warmups : {},
+      notes: obj.notes && typeof obj.notes === 'object' ? obj.notes : {},
       phase: typeof obj.phase === 'number' ? obj.phase : state.phase,
     })
   }
@@ -147,7 +152,7 @@ export default function App() {
             transition={{ duration: 0.15 }}
           >
             <div className="mt-0">
-              <StatsRow sessions={state.sessions} />
+              <StatsRow sessions={state.sessions} weeklyTarget={BRAND.weeklyTarget} />
             </div>
             <div className="mb-5">
               <BodyweightCard bw={state.bw} onLog={logBW} />
@@ -195,6 +200,19 @@ export default function App() {
                       onRemoveSet={removeSet}
                     />
                   ))}
+
+                  <div className="mb-4 mt-2">
+                    <label className="mb-1.5 block font-display text-[11px] uppercase tracking-widest2 text-faint">
+                      Session notes
+                    </label>
+                    <textarea
+                      rows={3}
+                      placeholder="How did it go? Any notes on loads, form, how you felt…"
+                      value={state.notes[`${active}_${todayKey()}`] || ''}
+                      onChange={(e) => saveNote(active, todayKey(), e.target.value)}
+                      className="w-full resize-none rounded-xl border border-line bg-surface px-3.5 py-3 text-[13px] text-ink placeholder:text-faint focus:border-accent focus:outline-none"
+                    />
+                  </div>
 
                   <motion.button
                     whileTap={{ scale: 0.98 }}
@@ -250,7 +268,7 @@ export default function App() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
           >
-            <CalendarView program={PROGRAM} sessions={state.sessions} logs={state.logs} />
+            <CalendarView program={PROGRAM} sessions={state.sessions} logs={state.logs} notes={state.notes} />
           </motion.div>
         )}
       </AnimatePresence>

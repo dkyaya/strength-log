@@ -4,6 +4,16 @@ All changes to the Fos app, newest first.
 
 ---
 
+## 2026-06-20 — Profile-specific weekly target, session notes, dated data
+
+**Weekly target is now profile-specific.** `BRAND.weeklyTarget` added to both program files (4 for Fos, 6 for FOS4Her). `StatsRow` accepts it as a prop instead of hardcoding `/6`. `App.jsx` passes `BRAND.weeklyTarget` through.
+
+**Session notes.** A "Session notes" textarea now appears below the exercise blocks on the train tab, above "Mark session done." Notes are stored in `state.notes` keyed by `dayId_date` (e.g. `lowerA_2026-06-20`), saved on every keystroke. Notes are also shown in the calendar day popover when tapping a completed session. `CalendarView` accepts a `notes` prop. `restoreFrom` in `App.jsx` handles notes in backup/restore.
+
+**Data dating.** Sets (`logs`), sessions, warmups, and bodyweight entries were already fully dated. Notes have the date baked into their key. `storage.js` now initialises and validates a `notes: {}` field alongside the existing fields.
+
+---
+
 ## 2026-06-18 — 6 sessions/week, calendar now profile-aware
 
 **"This week" counter updated to `/6`** in `StatsRow` (was `/4`).

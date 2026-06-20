@@ -8,6 +8,7 @@ export const BRAND = {
   eyebrow: 'Offseason · General Prep',
   subtitle: 'Strength base for the offseason. Four days, twice through upper and lower — the numbers are the demand, your call what you load.',
   showPhases: true,
+  weeklyTarget: 4,
 }
 
 export const PHASES = [

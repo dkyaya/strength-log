@@ -31,6 +31,7 @@ export const BRAND = {
   eyebrow: 'Strength Training',
   subtitle: 'Abs, push, glute, quad, back & bis — the numbers are the demand, your call what you load.',
   showPhases: false,
+  weeklyTarget: 6,
 }
 
 export const WARMUP_HER = {

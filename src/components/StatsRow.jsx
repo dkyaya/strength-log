@@ -1,13 +1,13 @@
 import { sessionsThisWeek, fmtShort } from '../lib/calc.js'
 
-export default function StatsRow({ sessions }) {
+export default function StatsRow({ sessions, weeklyTarget = 6 }) {
   const total = sessions.length
   const week = sessionsThisWeek(sessions)
   const last = sessions.length ? sessions[sessions.length - 1].date : null
 
   const items = [
     { num: total, label: 'Sessions logged' },
-    { num: <>{week}<small className="text-base text-muted">/6</small></>, label: 'This week' },
+    { num: <>{week}<small className="text-base text-muted">/{weeklyTarget}</small></>, label: 'This week' },
     { num: last ? fmtShort(last) : '—', label: 'Last trained', small: true },
   ]
 

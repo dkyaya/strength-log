@@ -10,7 +10,7 @@
 const KEY = import.meta.env.VITE_STORAGE_KEY || 'jumper_offseason_v1'
 const THEME_KEY = import.meta.env.VITE_THEME_KEY || 'strength_theme'
 
-const EMPTY = { logs: {}, sessions: [], bw: [], warmups: {}, phase: 0 }
+const EMPTY = { logs: {}, sessions: [], bw: [], warmups: {}, notes: {}, phase: 0 }
 
 export function loadData() {
   let state = { ...EMPTY }
@@ -24,6 +24,7 @@ export function loadData() {
   if (!Array.isArray(state.sessions)) state.sessions = []
   if (!Array.isArray(state.bw)) state.bw = []
   if (!state.warmups || typeof state.warmups !== 'object') state.warmups = {}
+  if (!state.notes || typeof state.notes !== 'object') state.notes = {}
   if (typeof state.phase !== 'number') state.phase = 0
   return state
 }
