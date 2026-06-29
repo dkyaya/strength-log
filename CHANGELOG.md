@@ -4,6 +4,14 @@ All changes to the Fos app, newest first.
 
 ---
 
+## 2026-06-29 — Fos Build + Intensify weights locked from Re-entry data
+
+Updated `src/data/program.js` (public Fos profile only — her and zay untouched). Build and Intensify phase weights now reflect actual mid-late June Re-entry session logs.
+
+Key changes from previous targets: Back Squat Build 315 → 295 lb (conservative ramp off 305×6 logged); Front Squat Build 255 → 225 lb (form-flagged, staying light through Intensify too at 245); Hip Thrust Build 275 → 295 lb (logged 315×10, pulled back slightly); Weighted Pull-up Build +45 → +10 lb (was BW-only last session, re-adding load gradually); Face Pull Build pinned at 100 lb (consistency target, not a PR chase); Pallof Press Build 'mid' → 75 lb (logged 70×10 on 6/25, bumped slightly); Tib Raise and BSS weights specified from logged numbers; SL-RDL, Seated Calf, Step-Down, OHP, Incline DB, Chin-up Intensify all bumped proportionally.
+
+---
+
 ## 2026-06-20 — Zay: FOS4Her warmup, weeklyTarget 4
 
 Zay now uses the FOS4Her warmup (Cardio 10–15 min + General stretching) instead of the generic shared warmup. `weeklyTarget` set to 4 in his `BRAND`.

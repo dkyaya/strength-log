@@ -7,8 +7,6 @@ export const BRAND = {
   name: 'Fos',
   eyebrow: 'Offseason · General Prep',
   subtitle: 'Strength base for the offseason. Four days, twice through upper and lower — the numbers are the demand, your call what you load.',
-  showPhases: true,
-  weeklyTarget: 4,
 }
 
 export const PHASES = [
@@ -29,24 +27,24 @@ export const PROGRAM = [
       {
         tag: 'A', kind: 'straight', note: 'heavy · 2–3 min rest',
         ex: [
-          { id: 'backsquat', name: 'Back Squat', cue: 'Re-entry: 3-sec lowering, leave a few in the tank.',
-            phases: p({ sets: 3, reps: '6', weight: '275 lb' }, { sets: 4, reps: '5', weight: '315 lb' }, { sets: 4, reps: '4', weight: '340 lb' }) },
+          { id: 'backsquat', name: 'Back Squat', cue: 'Build: climb via reps first (hit 5x4), then load. Intensify: heavier, fewer reps.',
+            phases: p({ sets: 3, reps: '6', weight: '275 lb' }, { sets: 4, reps: '5', weight: '295 lb' }, { sets: 4, reps: '4', weight: '325 lb' }) },
         ],
       },
       {
         tag: 'B', kind: 'superset', note: 'alternate · ~90s after the pair',
         ex: [
           { id: 'rdl', name: 'Romanian Deadlift', cue: 'Hinge from the hips, chase the hamstring stretch.',
-            phases: p({ sets: 3, reps: '8', weight: '245 lb' }, { sets: 3, reps: '8', weight: '285 lb' }, { sets: 4, reps: '6', weight: '315 lb' }) },
+            phases: p({ sets: 3, reps: '8', weight: '245 lb' }, { sets: 3, reps: '8', weight: '265 lb' }, { sets: 4, reps: '6', weight: '295 lb' }) },
           { id: 'calf_stand', name: 'Standing Calf Raise', cue: 'Straight knee. Full stretch, pause at the top.',
-            phases: p({ sets: 3, reps: '12', weight: '70 lb' }, { sets: 4, reps: '12', weight: '90 lb' }, { sets: 4, reps: '12', weight: '110 lb' }) },
+            phases: p({ sets: 3, reps: '12', weight: '70 lb' }, { sets: 4, reps: '12', weight: '135 lb' }, { sets: 4, reps: '12', weight: '155 lb' }) },
         ],
       },
       {
         tag: 'C', kind: 'superset', note: 'alternate · ~90s',
         ex: [
           { id: 'hipthrust', name: 'Hip Thrust', cue: 'Ribs down, full glute lockout, pause at the top.',
-            phases: p({ sets: 3, reps: '8', weight: '225 lb' }, { sets: 3, reps: '8', weight: '275 lb' }, { sets: 4, reps: '8', weight: '315 lb' }) },
+            phases: p({ sets: 3, reps: '8', weight: '225 lb' }, { sets: 3, reps: '8', weight: '295 lb' }, { sets: 4, reps: '8', weight: '325 lb' }) },
           { id: 'hanglegraise', name: 'Hanging Leg Raise', cue: 'No swing. Brace and curl the pelvis.',
             phases: p({ sets: 3, reps: '10', weight: 'BW' }, { sets: 3, reps: '12', weight: 'BW' }, { sets: 4, reps: '12', weight: 'BW' }) },
         ],
@@ -70,16 +68,16 @@ export const PROGRAM = [
         tag: 'A', kind: 'superset', note: 'push/pull · alternate · ~2 min',
         ex: [
           { id: 'bench', name: 'Bench Press', cue: 'Tuck the elbows, leg drive, controlled touch.',
-            phases: p({ sets: 3, reps: '8', weight: '140 lb' }, { sets: 4, reps: '6', weight: '165 lb' }, { sets: 4, reps: '5', weight: '178 lb' }) },
+            phases: p({ sets: 3, reps: '8', weight: '140 lb' }, { sets: 4, reps: '6', weight: '160 lb' }, { sets: 4, reps: '5', weight: '178 lb' }) },
           { id: 'wpullup', name: 'Weighted Pull-up', cue: 'Full hang to chin over bar. Add load when clean.',
-            phases: p({ sets: 3, reps: '8', weight: '+25 lb' }, { sets: 4, reps: '6', weight: '+45 lb' }, { sets: 4, reps: '5', weight: '+60 lb' }) },
+            phases: p({ sets: 3, reps: '8', weight: '+25 lb' }, { sets: 4, reps: '6', weight: '+10 lb' }, { sets: 4, reps: '5', weight: '+25 lb' }) },
         ],
       },
       {
         tag: 'B', kind: 'superset', note: 'push/pull · alternate · ~90s',
         ex: [
           { id: 'ohp', name: 'Overhead Press', cue: 'Glutes tight, head through at lockout. (Est. — feel it out.)',
-            phases: p({ sets: 3, reps: '8', weight: '90 lb' }, { sets: 3, reps: '8', weight: '100 lb' }, { sets: 4, reps: '6', weight: '110 lb' }) },
+            phases: p({ sets: 3, reps: '8', weight: '90 lb' }, { sets: 3, reps: '8', weight: '100 lb' }, { sets: 4, reps: '6', weight: '115 lb' }) },
           { id: 'row', name: 'Barbell Row', cue: 'Flat back, pull to the lower ribs.',
             phases: p({ sets: 3, reps: '10', weight: '135 lb' }, { sets: 3, reps: '8', weight: '155 lb' }, { sets: 4, reps: '8', weight: '175 lb' }) },
         ],
@@ -88,9 +86,9 @@ export const PROGRAM = [
         tag: 'C', kind: 'superset', note: 'armor · alternate · ~60s',
         ex: [
           { id: 'tib', name: 'Tibialis Raise', cue: 'Anterior shin — shin-splint armor for jumpers.',
-            phases: p({ sets: 3, reps: '18', weight: 'light' }, { sets: 3, reps: '20', weight: 'light' }, { sets: 4, reps: '20', weight: 'add load' }) },
-          { id: 'pallof', name: 'Pallof Press', cue: 'Anti-rotation. Resist the twist, don’t create it.',
-            phases: p({ sets: 3, reps: '10/side', weight: 'mid stack' }, { sets: 3, reps: '12/side', weight: 'mid' }, { sets: 3, reps: '12/side', weight: 'mid' }) },
+            phases: p({ sets: 3, reps: '18', weight: 'light' }, { sets: 3, reps: '20', weight: '26 lb' }, { sets: 4, reps: '20', weight: '35 lb' }) },
+          { id: 'pallof', name: 'Pallof Press', cue: "Anti-rotation. Resist the twist, don't create it.",
+            phases: p({ sets: 3, reps: '10/side', weight: 'mid stack' }, { sets: 3, reps: '12/side', weight: '75 lb' }, { sets: 3, reps: '12/side', weight: '85 lb' }) },
         ],
       },
     ],
@@ -104,25 +102,25 @@ export const PROGRAM = [
       {
         tag: 'A', kind: 'straight', note: 'heavy · 2–3 min rest',
         ex: [
-          { id: 'frontsquat', name: 'Front Squat', cue: 'Upright torso, elbows high. Trains the brace too.',
-            phases: p({ sets: 3, reps: '5', weight: '225 lb' }, { sets: 4, reps: '4', weight: '255 lb' }, { sets: 4, reps: '3', weight: '275 lb' }) },
+          { id: 'frontsquat', name: 'Front Squat', cue: 'Upright torso, elbows high. Form-focused — stay conservative here.',
+            phases: p({ sets: 3, reps: '5', weight: '225 lb' }, { sets: 4, reps: '4', weight: '225 lb' }, { sets: 4, reps: '3', weight: '245 lb' }) },
         ],
       },
       {
         tag: 'B', kind: 'superset', note: 'alternate · ~90s',
         ex: [
           { id: 'bss', name: 'Bulgarian Split Squat', cue: 'Rear foot elevated. Own the balance before loading.',
-            phases: p({ sets: 3, reps: '8/leg', weight: '30 lb DBs' }, { sets: 3, reps: '8/leg', weight: '40 lb DBs' }, { sets: 3, reps: '6/leg', weight: '50 lb DBs' }) },
+            phases: p({ sets: 3, reps: '8/leg', weight: '30 lb DBs' }, { sets: 3, reps: '8/leg', weight: '65 lb DBs' }, { sets: 3, reps: '6/leg', weight: '75 lb DBs' }) },
           { id: 'calf_seat', name: 'Seated Calf Raise', cue: 'Bent knee hits the soleus — tendon stiffness.',
-            phases: p({ sets: 3, reps: '12', weight: '45 lb' }, { sets: 4, reps: '12', weight: '70 lb' }, { sets: 4, reps: '15', weight: '90 lb' }) },
+            phases: p({ sets: 3, reps: '12', weight: '45 lb' }, { sets: 4, reps: '12', weight: '155 lb' }, { sets: 4, reps: '15', weight: '175 lb' }) },
         ],
       },
       {
         tag: 'C', kind: 'superset', note: 'alternate · ~90s',
         ex: [
           { id: 'stepdown', name: 'Eccentric Step-Down', cue: '4-sec lower off a box, tap, drive up. Absorb force.',
-            phases: p({ sets: 3, reps: '6/leg', weight: 'BW' }, { sets: 3, reps: '8/leg', weight: 'BW' }, { sets: 3, reps: '8/leg', weight: '+20 lb' }) },
-          { id: 'suitcase', name: 'Suitcase Carry', cue: 'One side loaded, don’t lean. Anti-lateral-flexion.',
+            phases: p({ sets: 3, reps: '6/leg', weight: 'BW' }, { sets: 3, reps: '8/leg', weight: 'BW' }, { sets: 3, reps: '8/leg', weight: '+25 lb' }) },
+          { id: 'suitcase', name: 'Suitcase Carry', cue: "One side loaded, don't lean. Anti-lateral-flexion.",
             phases: p({ sets: 3, reps: '40m', weight: '70 lb/side' }, { sets: 3, reps: '40m', weight: '85 lb/side' }, { sets: 3, reps: '40m', weight: '100 lb/side' }) },
         ],
       },
@@ -130,7 +128,7 @@ export const PROGRAM = [
         tag: 'D', kind: 'straight', note: 'balance & control · 90s rest',
         ex: [
           { id: 'slrdl', name: 'Single-Leg RDL', cue: 'Hips square to the floor. Slow and honest.',
-            phases: p({ sets: 3, reps: '8/leg', weight: '25 lb DB' }, { sets: 3, reps: '8/leg', weight: '35 lb DB' }, { sets: 3, reps: '8/leg', weight: '45 lb DB' }) },
+            phases: p({ sets: 3, reps: '8/leg', weight: '25 lb DB' }, { sets: 3, reps: '8/leg', weight: '55 lb DB' }, { sets: 3, reps: '8/leg', weight: '65 lb DB' }) },
         ],
       },
     ],
@@ -145,9 +143,9 @@ export const PROGRAM = [
         tag: 'A', kind: 'superset', note: 'push/pull · alternate · ~2 min',
         ex: [
           { id: 'inclinedb', name: 'Incline DB Press', cue: 'Slight arch, full stretch at the bottom.',
-            phases: p({ sets: 3, reps: '10', weight: '50 lb DBs' }, { sets: 4, reps: '8', weight: '60 lb DBs' }, { sets: 4, reps: '8', weight: '65 lb DBs' }) },
+            phases: p({ sets: 3, reps: '10', weight: '50 lb DBs' }, { sets: 4, reps: '8', weight: '60 lb DBs' }, { sets: 4, reps: '8', weight: '70 lb DBs' }) },
           { id: 'chinup', name: 'Chin-up', cue: 'Supinated grip, full hang to chin over bar.',
-            phases: p({ sets: 3, reps: '10', weight: 'BW' }, { sets: 4, reps: '8', weight: '+10 lb' }, { sets: 4, reps: '8', weight: '+25 lb' }) },
+            phases: p({ sets: 3, reps: '10', weight: 'BW' }, { sets: 4, reps: '8', weight: '+10 lb' }, { sets: 4, reps: '8', weight: '+20 lb' }) },
         ],
       },
       {
@@ -156,7 +154,7 @@ export const PROGRAM = [
           { id: 'dbohp', name: 'DB Shoulder Press', cue: 'Neutral or slight angle, control the lower.',
             phases: p({ sets: 3, reps: '12', weight: '40 lb DBs' }, { sets: 3, reps: '10', weight: '45 lb DBs' }, { sets: 3, reps: '10', weight: '50 lb DBs' }) },
           { id: 'facepull', name: 'Face Pull', cue: 'Shoulder health. High elbows, pull to the eyes.',
-            phases: p({ sets: 3, reps: '15', weight: 'light' }, { sets: 3, reps: '15', weight: 'mid' }, { sets: 3, reps: '15', weight: 'mid' }) },
+            phases: p({ sets: 3, reps: '15', weight: 'light' }, { sets: 3, reps: '15', weight: '100 lb' }, { sets: 3, reps: '15', weight: '110 lb' }) },
         ],
       },
       {
@@ -164,7 +162,7 @@ export const PROGRAM = [
         ex: [
           { id: 'spanish', name: 'Spanish Squat (iso hold)', cue: 'Band behind the knees, sit back, hold. Patellar insurance.',
             phases: p({ sets: 3, reps: '30s', weight: 'band' }, { sets: 3, reps: '40s', weight: 'band' }, { sets: 4, reps: '45s', weight: 'band' }) },
-          { id: 'abwheel', name: 'Ab Wheel', cue: 'Long lever, don’t let the hips sag.',
+          { id: 'abwheel', name: 'Ab Wheel', cue: "Long lever, don't let the hips sag.",
             phases: p({ sets: 3, reps: '8', weight: 'BW' }, { sets: 3, reps: '10', weight: 'BW' }, { sets: 4, reps: '12', weight: 'BW' }) },
         ],
       },
