@@ -8,7 +8,6 @@ import { todayKey } from './lib/calc.js'
 
 import NavTabs from './components/NavTabs.jsx'
 import StatsRow from './components/StatsRow.jsx'
-import BodyweightCard from './components/BodyweightCard.jsx'
 import PhaseSwitcher from './components/PhaseSwitcher.jsx'
 import DayTabs from './components/DayTabs.jsx'
 import Warmup from './components/Warmup.jsx'
@@ -25,6 +24,7 @@ export default function App() {
   const [theme, setTheme] = useState(loadTheme)
   const [saved, setSaved] = useState(false)
   const [view, setView] = useState('train')
+  const [showCover, setShowCover] = useState(true)
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark')
@@ -90,20 +90,6 @@ export default function App() {
     setState((s) => ({ ...s, notes: { ...s.notes, [`${dayId}_${date}`]: text } }))
   }, [])
 
-  const logBW = useCallback((weight) => {
-    setState((s) => {
-      const tk = todayKey()
-      const existing = s.bw.find((e) => e.date === tk)
-      let next
-      if (existing) {
-        next = s.bw.map((e) => (e.date === tk ? { ...e, weight } : e))
-      } else {
-        next = s.bw.concat([{ date: tk, weight }]).sort((a, b) => (a.date < b.date ? -1 : 1))
-      }
-      return { ...s, bw: next }
-    })
-  }, [])
-
   function resetAll() {
     if (!confirm("Clear all logged sets, sessions, warmups and bodyweight? This can't be undone.")) return
     clearData()
@@ -122,156 +108,181 @@ export default function App() {
   }
 
   return (
-    <div className="mx-auto max-w-[760px] px-4 pb-16 pt-5 [padding-top:calc(1.25rem+env(safe-area-inset-top))]">
-      {/* header */}
-      <div className="mb-2.5 flex items-center gap-2">
-        <span className="font-display text-[11px] font-500 uppercase tracking-widest2 text-faint">
-          {BRAND.eyebrow}
-        </span>
-        <span className="h-px flex-1 bg-line" />
-        <ThemeToggle theme={theme} onToggle={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))} />
-      </div>
-
-      <h1 className="flex items-center gap-3 font-display text-[34px] font-700 uppercase leading-[1.02] tracking-tight">
-        <LogoMark size={40} />
-        {BRAND.name}
-      </h1>
-      <p className="mt-1.5 max-w-[54ch] text-[14px] text-muted">
-        {BRAND.subtitle}
-      </p>
-
-      <NavTabs view={view} onChange={setView} />
-
-      <AnimatePresence mode="wait">
-        {view === 'train' && (
+    <>
+      <AnimatePresence>
+        {showCover && (
           <motion.div
-            key="train"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            key="cover"
+            className="fixed inset-0 z-50 flex cursor-pointer flex-col items-center justify-center gap-4 px-6"
+            style={{ background: 'rgb(var(--bg))' }}
+            onClick={() => setShowCover(false)}
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4, ease: 'easeIn' }}
           >
-            <div className="mt-0">
-              <StatsRow sessions={state.sessions} weeklyTarget={BRAND.weeklyTarget} />
-            </div>
-            <div className="mb-5">
-              <BodyweightCard bw={state.bw} onLog={logBW} />
-            </div>
-
-            {BRAND.showPhases && <PhaseSwitcher phases={PHASES} phaseIdx={state.phase} onChange={(i) => setState((s) => ({ ...s, phase: i }))} />}
-
-            <DayTabs program={PROGRAM} active={active} onChange={setActive} sessions={state.sessions} />
-
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={active}
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
-                transition={{ duration: 0.18 }}
-              >
-                <div className="mb-3.5 flex items-baseline justify-between gap-3">
-                  <h2 className="font-display text-[19px] font-700 tracking-tight">{day.name}</h2>
-                  <span className="font-display text-[11px] uppercase tracking-wide text-accent">{day.focus}</span>
-                </div>
-
-                <Warmup warmup={WARMUP} done={wuDone} onToggle={toggleWarmup} />
-
-                {!cleared && (
-                  <div className="mb-3.5 flex items-center gap-2.5 rounded-xl border border-accent/25 bg-accent/10 px-3.5 py-3">
-                    <Lock size={15} className="flex-none text-accent" />
-                    <p className="text-[13px] text-ink">
-                      Workout locked — finish your warmup to unlock.{' '}
-                      <b className="font-display font-700">
-                        {wuDone.filter(Boolean).length}/{WARMUP.items.length} done
-                      </b>
-                    </p>
-                  </div>
-                )}
-
-                <div className={cleared ? '' : 'pointer-events-none opacity-40 saturate-[0.4]'}>
-                  {day.blocks.map((block) => (
-                    <BlockGroup
-                      key={block.tag}
-                      block={block}
-                      phaseIdx={state.phase}
-                      logs={state.logs}
-                      onLogSet={logSet}
-                      onRemoveSet={removeSet}
-                    />
-                  ))}
-
-                  <div className="mb-4 mt-2">
-                    <label className="mb-1.5 block font-display text-[11px] uppercase tracking-widest2 text-faint">
-                      Session notes
-                    </label>
-                    <textarea
-                      rows={3}
-                      placeholder="How did it go? Any notes on loads, form, how you felt…"
-                      value={state.notes[`${active}_${todayKey()}`] || ''}
-                      onChange={(e) => saveNote(active, todayKey(), e.target.value)}
-                      className="w-full resize-none rounded-xl border border-line bg-surface px-3.5 py-3 text-[13px] text-ink placeholder:text-faint focus:border-accent focus:outline-none"
-                    />
-                  </div>
-
-                  <motion.button
-                    whileTap={{ scale: 0.98 }}
-                    disabled={!cleared || doneToday}
-                    onClick={markDone}
-                    className={`mt-1 w-full rounded-xl py-3.5 font-display text-[15px] font-700 transition-colors ${
-                      doneToday
-                        ? 'border border-good/40 bg-surface text-good'
-                        : 'bg-accent text-accent-fg hover:brightness-110'
-                    }`}
-                  >
-                    {doneToday ? '✓ Session logged today' : 'Mark session done'}
-                  </motion.button>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-
-            <div className="mt-7">
-              <BackupPanel getState={() => state} onRestore={restoreFrom} />
-            </div>
-
-            <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-line/70 pt-4">
-              <span className={`font-display text-[10px] uppercase tracking-wide text-good transition-opacity ${saved ? 'opacity-100' : 'opacity-0'}`}>
-                · saved
-              </span>
-              <button
-                onClick={resetAll}
-                className="rounded-lg border border-line px-3 py-1.5 font-display text-[11px] uppercase tracking-wide text-muted transition-colors hover:border-accent hover:text-accent"
-              >
-                Reset all data
-              </button>
-            </div>
-          </motion.div>
-        )}
-
-        {view === 'progress' && (
-          <motion.div
-            key="progress"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-          >
-            <ProgressView program={PROGRAM} logs={state.logs} />
-          </motion.div>
-        )}
-
-        {view === 'calendar' && (
-          <motion.div
-            key="calendar"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-          >
-            <CalendarView program={PROGRAM} sessions={state.sessions} logs={state.logs} notes={state.notes} />
+            <LogoMark size={120} animate />
+            <p className="font-display text-[10px] uppercase tracking-widest2 text-muted">{BRAND.eyebrow}</p>
+            <h1 className="font-display text-[52px] font-700 uppercase leading-none tracking-tight text-accent">{BRAND.name}</h1>
+            <p className="max-w-[40ch] text-center text-[13px] text-muted">{BRAND.subtitle}</p>
+            <motion.p
+              className="absolute bottom-10 font-display text-[10px] uppercase tracking-widest text-faint"
+              animate={{ opacity: [0.3, 1, 0.3] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            >
+              tap to begin
+            </motion.p>
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+
+      <div className="mx-auto max-w-[760px] px-4 pb-16 pt-5 [padding-top:calc(1.25rem+env(safe-area-inset-top))]">
+        {/* header */}
+        <div className="mb-2.5 flex items-center gap-2">
+          <span className="font-display text-[11px] font-500 uppercase tracking-widest2 text-faint">
+            {BRAND.eyebrow}
+          </span>
+          <span className="h-px flex-1 bg-line" />
+          <ThemeToggle theme={theme} onToggle={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))} />
+        </div>
+
+        <h1 className="flex items-center gap-3 font-display text-[34px] font-700 uppercase leading-[1.02] tracking-tight">
+          <LogoMark size={40} animate={false} />
+          {BRAND.name}
+        </h1>
+        <p className="mt-1.5 max-w-[54ch] text-[14px] text-muted">
+          {BRAND.subtitle}
+        </p>
+
+        <NavTabs view={view} onChange={setView} />
+
+        <AnimatePresence mode="wait">
+          {view === 'train' && (
+            <motion.div
+              key="train"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+            >
+              <div className="mt-0">
+                <StatsRow sessions={state.sessions} weeklyTarget={BRAND.weeklyTarget} />
+              </div>
+
+              {PHASES.length > 0 && <PhaseSwitcher phases={PHASES} phaseIdx={state.phase} onChange={(i) => setState((s) => ({ ...s, phase: i }))} />}
+
+              <DayTabs program={PROGRAM} active={active} onChange={setActive} sessions={state.sessions} />
+
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={active}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.18 }}
+                >
+                  <div className="mb-3.5 flex items-baseline justify-between gap-3">
+                    <h2 className="font-display text-[19px] font-700 tracking-tight">{day.name}</h2>
+                    <span className="font-display text-[11px] uppercase tracking-wide text-accent">{day.focus}</span>
+                  </div>
+
+                  <Warmup warmup={WARMUP} done={wuDone} onToggle={toggleWarmup} />
+
+                  {!cleared && (
+                    <div className="mb-3.5 flex items-center gap-2.5 rounded-xl border border-accent/25 bg-accent/10 px-3.5 py-3">
+                      <Lock size={15} className="flex-none text-accent" />
+                      <p className="text-[13px] text-ink">
+                        Workout locked — finish your warmup to unlock.{' '}
+                        <b className="font-display font-700">
+                          {wuDone.filter(Boolean).length}/{WARMUP.items.length} done
+                        </b>
+                      </p>
+                    </div>
+                  )}
+
+                  <div className={cleared ? '' : 'pointer-events-none opacity-40 saturate-[0.4]'}>
+                    {day.blocks.map((block) => (
+                      <BlockGroup
+                        key={block.tag}
+                        block={block}
+                        phaseIdx={state.phase}
+                        logs={state.logs}
+                        onLogSet={logSet}
+                        onRemoveSet={removeSet}
+                      />
+                    ))}
+
+                    <div className="mb-4 mt-2">
+                      <label className="mb-1.5 block font-display text-[11px] uppercase tracking-widest2 text-faint">
+                        Session notes
+                      </label>
+                      <textarea
+                        rows={3}
+                        placeholder="How did it go? Any notes on loads, form, how you felt…"
+                        value={state.notes[`${active}_${todayKey()}`] || ''}
+                        onChange={(e) => saveNote(active, todayKey(), e.target.value)}
+                        className="w-full resize-none rounded-xl border border-line bg-surface px-3.5 py-3 text-[13px] text-ink placeholder:text-faint focus:border-accent focus:outline-none"
+                      />
+                    </div>
+
+                    <motion.button
+                      whileTap={{ scale: 0.98 }}
+                      disabled={!cleared || doneToday}
+                      onClick={markDone}
+                      className={`mt-1 w-full rounded-xl py-3.5 font-display text-[15px] font-700 transition-colors ${
+                        doneToday
+                          ? 'border border-good/40 bg-surface text-good'
+                          : 'bg-accent text-accent-fg hover:brightness-110'
+                      }`}
+                    >
+                      {doneToday ? '✓ Session logged today' : 'Mark session done'}
+                    </motion.button>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+
+              <div className="mt-7">
+                <BackupPanel getState={() => state} onRestore={restoreFrom} />
+              </div>
+
+              <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-line/70 pt-4">
+                <span className={`font-display text-[10px] uppercase tracking-wide text-good transition-opacity ${saved ? 'opacity-100' : 'opacity-0'}`}>
+                  · saved
+                </span>
+                <button
+                  onClick={resetAll}
+                  className="rounded-lg border border-line px-3 py-1.5 font-display text-[11px] uppercase tracking-wide text-muted transition-colors hover:border-accent hover:text-accent"
+                >
+                  Reset all data
+                </button>
+              </div>
+            </motion.div>
+          )}
+
+          {view === 'progress' && (
+            <motion.div
+              key="progress"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+            >
+              <ProgressView program={PROGRAM} logs={state.logs} />
+            </motion.div>
+          )}
+
+          {view === 'calendar' && (
+            <motion.div
+              key="calendar"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+            >
+              <CalendarView program={PROGRAM} sessions={state.sessions} logs={state.logs} notes={state.notes} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </>
   )
 }

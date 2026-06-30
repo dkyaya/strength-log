@@ -4,6 +4,20 @@ All changes to the Fos app, newest first.
 
 ---
 
+## 2026-06-29 — Fos UI redesign: new palette, logo animation, cover screen
+
+**Palette** (`src/theme-fos.css`, `src/index.css`): replaced orange-red accent and grey neutrals with navy accent (navy-800 light / navy-400 dark) and a warm organic base — cream background, mint-tinted surfaces, sage borders, jade greens. Dark mode shifts to deep navy-950 base.
+
+**Logo** (`src/components/LogoMark.jsx`): replaced simple arc+bar SVG with the full `fos_logo_3d.svg` shapes inlined in JSX for Framer Motion animation. Sequence: crossbar slides in left-to-right (0.35s), right arc draws in behind it (0.35–0.75s), left arc draws in over it (0.65–1.05s), then ambient navy glow breathes. Background switches from hardcoded `#0B0C0E` to `rgb(var(--surface))` with `border border-line`.
+
+**Cover screen** (`src/App.jsx`): full-screen modal on first load showing large logo (animated), eyebrow, app name in navy, subtitle, and pulsing "tap to begin" — dismissed by tap, exits with fade+upward motion, session-only (no localStorage).
+
+**Removed**: `BodyweightCard` component and its `logBW` callback stripped from the Fos UI. `bw` field kept in state shape for backward compat with stored data. `showPhases` condition replaced with `PHASES.length > 0`.
+
+Her and Zay profiles untouched.
+
+---
+
 ## 2026-06-29 — Fos Build + Intensify weights locked from Re-entry data
 
 Updated `src/data/program.js` (public Fos profile only — her and zay untouched). Build and Intensify phase weights now reflect actual mid-late June Re-entry session logs.

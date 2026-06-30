@@ -1,12 +1,12 @@
-/* Fos accent theme — orange-red. Swapped in at build time via the
-   `@theme` alias in vite.config.js (mode: 'fos', the default). */
+/* Fos accent theme — navy. Swapped in at build time via the
+   `@theme` alias in vite.config.js (mode: 'fos'). */
 
 :root {
-  --accent: 240 68 36;
+  --accent: 30 58 95;       /* navy-800 */
   --accent-fg: 255 255 255;
 }
 
 .dark {
-  --accent: 250 79 46;
-  --accent-fg: 17 9 6;
+  --accent: 96 130 182;     /* softer navy-400 for dark mode legibility */
+  --accent-fg: 11 12 14;
 }
