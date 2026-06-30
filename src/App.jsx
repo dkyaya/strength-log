@@ -137,21 +137,16 @@ export default function App() {
 
       <div className="mx-auto max-w-[760px] px-4 pb-16 pt-5 [padding-top:calc(1.25rem+env(safe-area-inset-top))]">
         {/* header */}
-        <div className="mb-2.5 flex items-center gap-2">
+        <div className="mb-1 flex items-center justify-between">
           <span className="font-display text-[11px] font-500 uppercase tracking-widest2 text-faint">
             {BRAND.eyebrow}
           </span>
-          <span className="h-px flex-1 bg-line" />
           <ThemeToggle theme={theme} onToggle={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))} />
         </div>
 
-        <h1 className="flex items-center gap-3 font-display text-[34px] font-700 uppercase leading-[1.02] tracking-tight">
-          <LogoMark size={40} animate={false} />
+        <h1 className="mb-1 text-center font-display text-[52px] font-700 uppercase leading-none tracking-tight text-accent">
           {BRAND.name}
         </h1>
-        <p className="mt-1.5 max-w-[54ch] text-[14px] text-muted">
-          {BRAND.subtitle}
-        </p>
 
         <NavTabs view={view} onChange={setView} />
 

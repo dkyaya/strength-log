@@ -28,6 +28,7 @@ export default function BlockGroup({ block, phaseIdx, logs, onLogSet, onRemoveSe
             logs={logs}
             onLogSet={onLogSet}
             onRemoveSet={onRemoveSet}
+            cardVariant={i % 4}
           />
         ))}
       </div>

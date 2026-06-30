@@ -4,6 +4,18 @@ All changes to the Fos app, newest first.
 
 ---
 
+## 2026-06-29 — Polish: font swap, header redesign, card variants, stats fix
+
+**Font system**: swapped Oswald + Inter for Playfair Display (display/headings) + Lato (body). Updated `index.html` Google Fonts link and `tailwind.config.js` `fontFamily`. All `font-display` classes now render in Playfair Display — warm serif with personality; all `font-sans` in Lato.
+
+**Header** (`App.jsx`): removed subtitle and inline LogoMark. App name is now centered, 52px, navy accent. Eyebrow and ThemeToggle sit on a single `justify-between` row above it.
+
+**Card variants** (`ExerciseCard.jsx`, `BlockGroup.jsx`): cards now cycle through 4 shape variants (`i % 4`) — standard rounded, asymmetric top-left, left accent stripe, fully rounded — giving the workout list an organic handcrafted feel.
+
+**StatsRow fix** (`StatsRow.jsx`, `program.js`): `weeklyTarget` default changed from 6 → 4 in both `StatsRow` and `BRAND` — stats now show `/4` correctly.
+
+---
+
 ## 2026-06-29 — Dependencies, env titles, logo generator script
 
 Vite upgraded from 5.x to 8.x. Added `axios` and `dotenv` as runtime deps (used by the Gemini logo generator script). App title capitalisation updated to `FOS` in `.env.fos` and `.env.zay`. `gemini-fos-logo-generator.js` and `public/fos_logo_3d.svg` added to the repo. `.env` (API keys) added to `.gitignore`.

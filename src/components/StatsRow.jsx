@@ -1,6 +1,6 @@
 import { sessionsThisWeek, fmtShort } from '../lib/calc.js'
 
-export default function StatsRow({ sessions, weeklyTarget = 6 }) {
+export default function StatsRow({ sessions, weeklyTarget = 4 }) {
   const total = sessions.length
   const week = sessionsThisWeek(sessions)
   const last = sessions.length ? sessions[sessions.length - 1].date : null

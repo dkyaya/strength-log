@@ -17,8 +17,8 @@ export default {
         good: 'rgb(var(--good) / <alpha-value>)',
       },
       fontFamily: {
-        display: ['Oswald', 'sans-serif'],
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['"Playfair Display"', 'Georgia', 'serif'],
+        sans: ['Lato', 'system-ui', 'sans-serif'],
       },
       letterSpacing: {
         widest2: '0.18em',

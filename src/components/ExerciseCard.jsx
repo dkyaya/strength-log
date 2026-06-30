@@ -3,7 +3,14 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
 import { lastEntry, todaySets, fmtShort } from '../lib/calc.js'
 
-export default function ExerciseCard({ ex, phaseIdx, slot, logs, onLogSet, onRemoveSet }) {
+const variants = [
+  'rounded-2xl border border-line bg-surface',
+  'rounded-xl rounded-tl-3xl border border-line bg-surface',
+  'rounded-xl border-l-4 border-l-accent border-t border-r border-b border-line bg-surface',
+  'rounded-3xl border border-line bg-surface',
+]
+
+export default function ExerciseCard({ ex, phaseIdx, slot, logs, onLogSet, onRemoveSet, cardVariant = 0 }) {
   const [weight, setWeight] = useState('')
   const [reps, setReps] = useState('')
   const rx = ex.phases[phaseIdx]
@@ -17,7 +24,7 @@ export default function ExerciseCard({ ex, phaseIdx, slot, logs, onLogSet, onRem
   }
 
   return (
-    <div className="overflow-hidden rounded-xl border border-line bg-surface">
+    <div className={`overflow-hidden ${variants[cardVariant]}`}>
       <div className="p-4">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
