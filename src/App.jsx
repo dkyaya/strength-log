@@ -134,7 +134,9 @@ export default function App() {
           >
             <LogoMark size={120} animate />
             <p className="font-display text-[10px] uppercase tracking-widest2 text-muted">{BRAND.eyebrow}</p>
-            <Wordmark width={260} height={130} animate />
+            <h1 className="text-center font-display text-[52px] font-700 uppercase leading-none tracking-tight text-accent">
+              {BRAND.name}
+            </h1>
             <p className="max-w-[40ch] text-center text-[15px] text-muted">{BRAND.subtitle}</p>
             <motion.p
               className="absolute bottom-10 font-display text-[10px] uppercase tracking-widest text-faint"

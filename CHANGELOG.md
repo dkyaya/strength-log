@@ -4,6 +4,12 @@ All changes to the Fos app, newest first.
 
 ---
 
+## 2026-06-29 — Cover screen: replace animated wordmark with static text
+
+Cover screen now shows plain static "Fos" text (navy, 52px, Just Another Hand) instead of the animated pen-stroke `<Wordmark>`. The looping wordmark on the main page header is unaffected.
+
+---
+
 ## 2026-06-29 — Looping wordmark header, bigger body text, centered day selector, new icons
 
 **Looping wordmark** (`Wordmark.jsx`, `App.jsx`): added `loop` prop driving stroke-trace → fill-fade-in → hold → fade-out → retrace cycle. Main page header now shows `<Wordmark width={220} height={110} animate loop />` instead of static text. Cover screen's one-shot use is unaffected (`loop` defaults to `false`).
