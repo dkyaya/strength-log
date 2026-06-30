@@ -7,6 +7,7 @@ import { loadData, saveData, clearData, loadTheme, saveTheme } from './lib/stora
 import { todayKey } from './lib/calc.js'
 
 import BodyweightCard from './components/BodyweightCard.jsx'
+import Timer from './components/Timer.jsx'
 import NavTabs from './components/NavTabs.jsx'
 import StatsRow from './components/StatsRow.jsx'
 import PhaseSwitcher from './components/PhaseSwitcher.jsx'
@@ -304,6 +305,8 @@ export default function App() {
           )}
         </AnimatePresence>
       </div>
+
+      <Timer />
     </>
   )
 }

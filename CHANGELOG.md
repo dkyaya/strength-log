@@ -4,6 +4,12 @@ All changes to the Fos app, newest first.
 
 ---
 
+## 2026-06-30 — Standalone embedded timer (all profiles)
+
+New `Timer` component — a fixed bottom-right badge that expands into a panel with a circular progress ring, preset buttons (1m/1.5m/2m/3m), ±15s manual adjust, and start/pause/reset controls. Badge shows live `M:SS` countdown while running and pulses green on completion. Persists across Train/Progress/Calendar tabs; resets on page reload (intentionally ephemeral). No profile branching — shared chrome for all three builds.
+
+---
+
 ## 2026-06-30 — Restore BodyweightCard for Zay's profile only
 
 `BodyweightCard` is back in the Train tab for Zay, gated behind `import.meta.env.VITE_PROFILE === 'zay'`. Fos and Her builds are unaffected — the card does not render for them. Added `logBW` callback and re-wired the import in `App.jsx`; the component itself and all state handling were already intact.
