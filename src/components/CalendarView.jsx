@@ -142,7 +142,7 @@ export default function CalendarView({ program, sessions, logs, notes }) {
                 const sets = (logs[ex.id] || []).filter((e) => e.date === tapped.dateStr)
                 return (
                   <div key={ex.id} className="flex items-center justify-between">
-                    <span className="text-[13px] text-ink">{ex.name}</span>
+                    <span className="text-[15px] text-ink">{ex.name}</span>
                     <span className="font-display text-[11px] tnum text-muted">
                       {sets.length} {sets.length === 1 ? 'set' : 'sets'}
                     </span>
@@ -151,10 +151,10 @@ export default function CalendarView({ program, sessions, logs, notes }) {
               })}
             </div>
           ) : (
-            <p className="text-[13px] text-muted">Session marked done — no individual sets recorded</p>
+            <p className="text-[15px] text-muted">Session marked done — no individual sets recorded</p>
           )}
           {notes && notes[`${tapped.session.day}_${tapped.dateStr}`] && (
-            <p className="mt-3 border-t border-line pt-3 text-[13px] italic text-muted">
+            <p className="mt-3 border-t border-line pt-3 text-[15px] italic text-muted">
               {notes[`${tapped.session.day}_${tapped.dateStr}`]}
             </p>
           )}

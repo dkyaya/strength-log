@@ -3,7 +3,7 @@ import { todayKey } from '../lib/calc.js'
 
 export default function DayTabs({ program, active, onChange, sessions }) {
   return (
-    <div className="mb-4 flex gap-1.5 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <div className="mb-4 flex justify-center gap-1.5 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       {program.map((day) => {
         const isActive = day.id === active
         const doneToday = sessions.some((s) => s.day === day.id && s.date === todayKey())

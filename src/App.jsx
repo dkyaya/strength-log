@@ -135,7 +135,7 @@ export default function App() {
             <LogoMark size={120} animate />
             <p className="font-display text-[10px] uppercase tracking-widest2 text-muted">{BRAND.eyebrow}</p>
             <Wordmark width={260} height={130} animate />
-            <p className="max-w-[40ch] text-center text-[13px] text-muted">{BRAND.subtitle}</p>
+            <p className="max-w-[40ch] text-center text-[15px] text-muted">{BRAND.subtitle}</p>
             <motion.p
               className="absolute bottom-10 font-display text-[10px] uppercase tracking-widest text-faint"
               animate={{ opacity: [0.3, 1, 0.3] }}
@@ -156,9 +156,9 @@ export default function App() {
           <ThemeToggle theme={theme} onToggle={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))} />
         </div>
 
-        <h1 className="mb-1 text-center font-display text-[52px] font-700 uppercase leading-none tracking-tight text-accent">
-          {BRAND.name}
-        </h1>
+        <div className="mb-1 flex justify-center">
+          <Wordmark width={220} height={110} animate loop />
+        </div>
 
         <NavTabs view={view} onChange={setView} />
 
@@ -197,7 +197,7 @@ export default function App() {
                   {!cleared && (
                     <div className="mb-3.5 flex items-center gap-2.5 rounded-xl border border-accent/25 bg-accent/10 px-3.5 py-3">
                       <Lock size={15} className="flex-none text-accent" />
-                      <p className="text-[13px] text-ink">
+                      <p className="text-[15px] text-ink">
                         Workout locked — finish your warmup to unlock.{' '}
                         <b className="font-display font-700">
                           {wuDone.filter(Boolean).length}/{WARMUP.items.length} done
@@ -227,7 +227,7 @@ export default function App() {
                         placeholder="How did it go? Any notes on loads, form, how you felt…"
                         value={state.notes[`${active}_${todayKey()}`] || ''}
                         onChange={(e) => saveNote(active, todayKey(), e.target.value)}
-                        className="w-full resize-none rounded-xl border border-line bg-surface px-3.5 py-3 text-[13px] text-ink placeholder:text-faint focus:border-accent focus:outline-none"
+                        className="w-full resize-none rounded-xl border border-line bg-surface px-3.5 py-3 text-[15px] text-ink placeholder:text-faint focus:border-accent focus:outline-none"
                       />
                     </div>
 

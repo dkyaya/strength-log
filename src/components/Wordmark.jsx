@@ -12,61 +12,109 @@ const PATHS = {
 
 // Advance widths (hmtx at wght=700): F=522, o=372, s=351
 const ADV_F = 522
-const ADV_FO = 522 + 372  // x-offset for s
+const ADV_FO = 522 + 372
 
-// Y-flip: ascender height is 716 (max-Y of F)
-// transform="translate(X, 716) scale(1,-1)" maps font Y-up → SVG Y-down
+// Y-flip: translate(X, 716) scale(1,-1) maps font Y-up → SVG Y-down
 const ASCENDER = 716
 
-// ViewBox: full advance width × (ascender + descender depth)
-// descender depth = 87 (from F bounds min-Y = -87)
 const VB_W = 522 + 372 + 351  // 1245
 const VB_H = 716 + 87          // 803
 
-export default function Wordmark({ width = 280, height = 140, animate = true, className = '' }) {
+// Loop timing constants
+const STROKE_DURATIONS = [0.6, 0.5, 0.5]
+const STROKE_DELAYS    = [0,   0.55, 1.0]
+const STROKE_END       = 1.0 + 0.5
+const FILL_DURATION    = 0.4
+const HOLD_DURATION    = 1.6
+const FADE_DURATION    = 0.5
+const CYCLE            = STROKE_END + FILL_DURATION + HOLD_DURATION + FADE_DURATION + 0.4
+
+const letters = [
+  { key: 'F', d: PATHS.F, x: 0 },
+  { key: 'o', d: PATHS.o, x: ADV_F },
+  { key: 's', d: PATHS.s, x: ADV_FO },
+]
+
+export default function Wordmark({ width = 280, height = 140, animate = true, loop = false, className = '' }) {
   return (
-    <svg
+    <motion.svg
       viewBox={`0 0 ${VB_W} ${VB_H}`}
       width={width}
       height={height}
       className={className}
+      animate={loop ? { opacity: [1, 1, 1, 0, 0] } : undefined}
+      transition={loop ? {
+        duration: CYCLE,
+        times: [
+          0,
+          (STROKE_END + FILL_DURATION + HOLD_DURATION) / CYCLE,
+          (STROKE_END + FILL_DURATION + HOLD_DURATION) / CYCLE,
+          (STROKE_END + FILL_DURATION + HOLD_DURATION + FADE_DURATION) / CYCLE,
+          1,
+        ],
+        repeat: Infinity,
+        ease: 'linear',
+      } : undefined}
     >
-      <motion.path
-        d={PATHS.F}
-        transform={`translate(0, ${ASCENDER}) scale(1, -1)`}
-        fill="none"
-        stroke="rgb(var(--accent))"
-        strokeWidth="15"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        initial={animate ? { pathLength: 0 } : false}
-        animate={animate ? { pathLength: 1 } : false}
-        transition={{ duration: 0.6, ease: 'easeInOut' }}
-      />
-      <motion.path
-        d={PATHS.o}
-        transform={`translate(${ADV_F}, ${ASCENDER}) scale(1, -1)`}
-        fill="none"
-        stroke="rgb(var(--accent))"
-        strokeWidth="15"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        initial={animate ? { pathLength: 0 } : false}
-        animate={animate ? { pathLength: 1 } : false}
-        transition={{ duration: 0.5, ease: 'easeInOut', delay: 0.55 }}
-      />
-      <motion.path
-        d={PATHS.s}
-        transform={`translate(${ADV_FO}, ${ASCENDER}) scale(1, -1)`}
-        fill="none"
-        stroke="rgb(var(--accent))"
-        strokeWidth="15"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        initial={animate ? { pathLength: 0 } : false}
-        animate={animate ? { pathLength: 1 } : false}
-        transition={{ duration: 0.5, ease: 'easeInOut', delay: 1.0 }}
-      />
-    </svg>
+      {letters.map((letter, i) => (
+        <g key={letter.key} transform={`translate(${letter.x}, ${ASCENDER}) scale(1, -1)`}>
+          {/* stroke trace */}
+          <motion.path
+            d={letter.d}
+            fill="none"
+            stroke="rgb(var(--accent))"
+            strokeWidth="15"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            initial={animate ? { pathLength: 0 } : false}
+            animate={
+              animate
+                ? loop
+                  ? { pathLength: [0, 1, 1, 1, 0] }
+                  : { pathLength: 1 }
+                : false
+            }
+            transition={
+              loop
+                ? {
+                    duration: CYCLE,
+                    times: [
+                      STROKE_DELAYS[i] / CYCLE,
+                      (STROKE_DELAYS[i] + STROKE_DURATIONS[i]) / CYCLE,
+                      (STROKE_END + FILL_DURATION + HOLD_DURATION) / CYCLE,
+                      (STROKE_END + FILL_DURATION + HOLD_DURATION + FADE_DURATION * 0.3) / CYCLE,
+                      1,
+                    ],
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }
+                : { duration: STROKE_DURATIONS[i], delay: STROKE_DELAYS[i], ease: 'easeInOut' }
+            }
+          />
+          {/* fill — fades in once stroke trace is done, sits on top */}
+          {loop && (
+            <motion.path
+              d={letter.d}
+              fill="rgb(var(--accent))"
+              stroke="none"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 0, 1, 1, 0] }}
+              transition={{
+                duration: CYCLE,
+                times: [
+                  0,
+                  STROKE_END / CYCLE,
+                  (STROKE_END + FILL_DURATION) / CYCLE,
+                  (STROKE_END + FILL_DURATION + HOLD_DURATION) / CYCLE,
+                  (STROKE_END + FILL_DURATION + HOLD_DURATION + FADE_DURATION) / CYCLE,
+                ],
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            />
+          )}
+        </g>
+      ))}
+    </motion.svg>
   )
 }

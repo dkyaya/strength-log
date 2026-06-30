@@ -4,6 +4,20 @@ All changes to the Fos app, newest first.
 
 ---
 
+## 2026-06-29 — Looping wordmark header, bigger body text, centered day selector, new icons
+
+**Looping wordmark** (`Wordmark.jsx`, `App.jsx`): added `loop` prop driving stroke-trace → fill-fade-in → hold → fade-out → retrace cycle. Main page header now shows `<Wordmark width={220} height={110} animate loop />` instead of static text. Cover screen's one-shot use is unaffected (`loop` defaults to `false`).
+
+**Body text bumped** (`App.jsx`, `ExerciseCard.jsx`, `CalendarView.jsx`): cue text 12.5 → 14.5px; warmup-locked message, session notes textarea, cover subtitle, calendar exercise name and notes line all 13 → 15px.
+
+**Day selector centered** (`DayTabs.jsx`): `justify-center` added; overflow-x-auto scroll preserved for narrow screens.
+
+**App icons regenerated** (`public/`): `icon-192.png`, `icon-512.png`, `apple-touch-icon.png`, `favicon-32.png`, `favicon.svg` all regenerated from `fos_logo_3d.svg` via sharp-cli. `manifest.json` updated with 512px icon entry and new cream/navy palette colors (`background_color: #faf8f4`, `theme_color: #1e3a5f`). `index.html` updated to reference `apple-touch-icon.png`, `favicon-32.png`, and `favicon.svg`.
+
+Note: to see the new home-screen icon on iOS, remove the existing shortcut and re-add via Share → Add to Home Screen.
+
+---
+
 ## 2026-06-29 — Handwriting fonts, centered pills, pen-stroke wordmark, background circles
 
 **Font** (`index.html`, `tailwind.config.js`): swapped Playfair Display for Just Another Hand — a true narrow brush-drawn handwriting font. Body text stays Lato.

@@ -36,7 +36,7 @@ export default function ExerciseCard({ ex, phaseIdx, slot, logs, onLogSet, onRem
               )}
               <h3 className="font-display text-[17px] font-600 leading-tight">{ex.name}</h3>
             </div>
-            <p className="mt-1.5 text-[12.5px] leading-snug text-muted">{ex.cue}</p>
+            <p className="mt-1.5 text-[14.5px] leading-snug text-muted">{ex.cue}</p>
           </div>
 
           {/* The demand — stated, not guessed. */}
