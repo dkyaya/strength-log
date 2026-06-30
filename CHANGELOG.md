@@ -4,6 +4,18 @@ All changes to the Fos app, newest first.
 
 ---
 
+## 2026-06-29 — Handwriting fonts, centered pills, pen-stroke wordmark, background circles
+
+**Font** (`index.html`, `tailwind.config.js`): swapped Playfair Display for Just Another Hand — a true narrow brush-drawn handwriting font. Body text stays Lato.
+
+**Centered pills** (`NavTabs.jsx`, `PhaseSwitcher.jsx`): Train/Progress/Calendar and Re-entry/Build/Intensify pill rows now horizontally centered via `flex justify-center` on their outer wrappers.
+
+**Pen-stroke wordmark** (`src/components/Wordmark.jsx` — new): real Dancing Script glyph outlines for "F", "o", "s" extracted at wght=700 via fonttools. Paths are in font units (Y-up) and transformed to SVG space with `translate(X, 716) scale(1,-1)`. Each letter animates stroke by stroke with `pathLength` — F (0.6s), o (0.5s delay 0.55s), s (0.5s delay 1.0s). Used on the cover screen in place of the plain `<h1>` text.
+
+**Background circles** (`App.jsx`): faint concentric circle SVG (same motif as the logo) fixed behind all content at `opacity-[0.06]`, using `rgb(var(--good))` so it adapts to light/dark mode. Main content div gets `relative z-10`.
+
+---
+
 ## 2026-06-29 — Polish: font swap, header redesign, card variants, stats fix
 
 **Font system**: swapped Oswald + Inter for Playfair Display (display/headings) + Lato (body). Updated `index.html` Google Fonts link and `tailwind.config.js` `fontFamily`. All `font-display` classes now render in Playfair Display — warm serif with personality; all `font-sans` in Lato.

@@ -8,7 +8,7 @@ const VIEWS = [
 
 export default function NavTabs({ view, onChange }) {
   return (
-    <div className="mt-4 mb-5">
+    <div className="mt-4 mb-5 flex justify-center">
       <div className="inline-flex rounded-full border border-line bg-surface p-1">
         {VIEWS.map((v) => (
           <button

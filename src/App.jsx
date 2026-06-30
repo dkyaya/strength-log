@@ -17,6 +17,7 @@ import ThemeToggle from './components/ThemeToggle.jsx'
 import ProgressView from './components/ProgressView.jsx'
 import CalendarView from './components/CalendarView.jsx'
 import LogoMark from './components/LogoMark.jsx'
+import Wordmark from './components/Wordmark.jsx'
 
 export default function App() {
   const [state, setState] = useState(loadData)
@@ -109,6 +110,17 @@ export default function App() {
 
   return (
     <>
+      {/* page background — concentric circle motif from the logo, very faint */}
+      <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 flex items-center justify-center overflow-hidden">
+        <svg width="900" height="900" viewBox="0 0 680 680" className="opacity-[0.06]">
+          <circle cx="340" cy="340" r="300" fill="none" stroke="rgb(var(--good))" strokeWidth="1.5" />
+          <circle cx="340" cy="340" r="240" fill="none" stroke="rgb(var(--good))" strokeWidth="1" />
+          <circle cx="340" cy="340" r="180" fill="none" stroke="rgb(var(--good))" strokeWidth="1" />
+          <circle cx="340" cy="340" r="120" fill="none" stroke="rgb(var(--good))" strokeWidth="1" />
+          <circle cx="340" cy="340" r="60"  fill="none" stroke="rgb(var(--good))" strokeWidth="1" />
+        </svg>
+      </div>
+
       <AnimatePresence>
         {showCover && (
           <motion.div
@@ -122,7 +134,7 @@ export default function App() {
           >
             <LogoMark size={120} animate />
             <p className="font-display text-[10px] uppercase tracking-widest2 text-muted">{BRAND.eyebrow}</p>
-            <h1 className="font-display text-[52px] font-700 uppercase leading-none tracking-tight text-accent">{BRAND.name}</h1>
+            <Wordmark width={260} height={130} animate />
             <p className="max-w-[40ch] text-center text-[13px] text-muted">{BRAND.subtitle}</p>
             <motion.p
               className="absolute bottom-10 font-display text-[10px] uppercase tracking-widest text-faint"
@@ -135,7 +147,7 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      <div className="mx-auto max-w-[760px] px-4 pb-16 pt-5 [padding-top:calc(1.25rem+env(safe-area-inset-top))]">
+      <div className="relative z-10 mx-auto max-w-[760px] px-4 pb-16 pt-5 [padding-top:calc(1.25rem+env(safe-area-inset-top))]">
         {/* header */}
         <div className="mb-1 flex items-center justify-between">
           <span className="font-display text-[11px] font-500 uppercase tracking-widest2 text-faint">

@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 
 export default function PhaseSwitcher({ phases, phaseIdx, onChange }) {
   return (
-    <div className="mb-3">
+    <div className="mb-3 flex flex-col items-center">
       <div className="inline-flex rounded-full border border-line bg-surface p-1">
         {phases.map((ph, i) => (
           <button

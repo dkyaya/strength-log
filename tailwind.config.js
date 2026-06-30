@@ -17,7 +17,7 @@ export default {
         good: 'rgb(var(--good) / <alpha-value>)',
       },
       fontFamily: {
-        display: ['"Playfair Display"', 'Georgia', 'serif'],
+        display: ['"Just Another Hand"', 'cursive'],
         sans: ['Lato', 'system-ui', 'sans-serif'],
       },
       letterSpacing: {
