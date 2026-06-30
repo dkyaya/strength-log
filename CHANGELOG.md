@@ -4,6 +4,12 @@ All changes to the Fos app, newest first.
 
 ---
 
+## 2026-06-30 — Restore BodyweightCard for Zay's profile only
+
+`BodyweightCard` is back in the Train tab for Zay, gated behind `import.meta.env.VITE_PROFILE === 'zay'`. Fos and Her builds are unaffected — the card does not render for them. Added `logBW` callback and re-wired the import in `App.jsx`; the component itself and all state handling were already intact.
+
+---
+
 ## 2026-06-29 — Cover screen: replace animated wordmark with static text
 
 Cover screen now shows plain static "Fos" text (navy, 52px, Just Another Hand) instead of the animated pen-stroke `<Wordmark>`. The looping wordmark on the main page header is unaffected.

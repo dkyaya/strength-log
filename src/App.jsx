@@ -6,6 +6,7 @@ import { ACTIVE_PROGRAM as PROGRAM, ACTIVE_PHASES as PHASES, ACTIVE_WARMUP as WA
 import { loadData, saveData, clearData, loadTheme, saveTheme } from './lib/storage.js'
 import { todayKey } from './lib/calc.js'
 
+import BodyweightCard from './components/BodyweightCard.jsx'
 import NavTabs from './components/NavTabs.jsx'
 import StatsRow from './components/StatsRow.jsx'
 import PhaseSwitcher from './components/PhaseSwitcher.jsx'
@@ -40,6 +41,8 @@ export default function App() {
       return () => clearTimeout(t)
     }
   }, [state])
+
+  const isZay = import.meta.env.VITE_PROFILE === 'zay'
 
   const day = PROGRAM.find((d) => d.id === active)
   const wuRec = state.warmups[active]
@@ -86,6 +89,10 @@ export default function App() {
   const markDone = useCallback(() => {
     setState((s) => ({ ...s, sessions: s.sessions.concat([{ day: active, date: todayKey() }]) }))
   }, [active])
+
+  const logBW = useCallback((weight) => {
+    setState((s) => ({ ...s, bw: s.bw.concat([{ date: todayKey(), weight }]) }))
+  }, [])
 
   const saveNote = useCallback((dayId, date, text) => {
     setState((s) => ({ ...s, notes: { ...s.notes, [`${dayId}_${date}`]: text } }))
@@ -174,6 +181,11 @@ export default function App() {
               transition={{ duration: 0.15 }}
             >
               <div className="mt-0">
+                {isZay && (
+                  <div className="mb-3.5">
+                    <BodyweightCard bw={state.bw} onLog={logBW} />
+                  </div>
+                )}
                 <StatsRow sessions={state.sessions} weeklyTarget={BRAND.weeklyTarget} />
               </div>
 
