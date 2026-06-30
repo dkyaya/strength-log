@@ -4,6 +4,12 @@ All changes to the Fos app, newest first.
 
 ---
 
+## 2026-06-29 — Dependencies, env titles, logo generator script
+
+Vite upgraded from 5.x to 8.x. Added `axios` and `dotenv` as runtime deps (used by the Gemini logo generator script). App title capitalisation updated to `FOS` in `.env.fos` and `.env.zay`. `gemini-fos-logo-generator.js` and `public/fos_logo_3d.svg` added to the repo. `.env` (API keys) added to `.gitignore`.
+
+---
+
 ## 2026-06-29 — Fos UI redesign: new palette, logo animation, cover screen
 
 **Palette** (`src/theme-fos.css`, `src/index.css`): replaced orange-red accent and grey neutrals with navy accent (navy-800 light / navy-400 dark) and a warm organic base — cream background, mint-tinted surfaces, sage borders, jade greens. Dark mode shifts to deep navy-950 base.

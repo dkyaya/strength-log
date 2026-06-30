@@ -15,6 +15,8 @@
     "deploy": "npm run build:fos && npm run build:her && npm run build:zay && gh-pages -d dist"
   },
   "dependencies": {
+    "axios": "^1.18.1",
+    "dotenv": "^17.4.2",
     "framer-motion": "^11.3.0",
     "lucide-react": "^0.408.0",
     "react": "^18.3.1",
@@ -26,6 +28,6 @@
     "gh-pages": "^6.1.1",
     "postcss": "^8.4.39",
     "tailwindcss": "^3.4.6",
-    "vite": "^5.3.4"
+    "vite": "^8.1.0"
   }
 }
